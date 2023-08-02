@@ -1,0 +1,1 @@
+export type {CinemaModelType,filmModelType,sessionModelType,hallModelType,TicketModelType,UserModelType,UserNameModelType,OrderModelType,ReserveModelType,tockenModelType} from './models'

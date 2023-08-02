@@ -1,0 +1,1 @@
+export { cinemasGqlSchema } from "./cinemas"

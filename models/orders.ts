@@ -1,0 +1,56 @@
+import { OrderModelType } from "@/types";
+import mongoose,{ Schema} from "mongoose"
+
+const schema=new mongoose.Schema<OrderModelType>({
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:'users',
+        required:true
+    },
+    session:{
+        type:Schema.Types.ObjectId,
+        ref:'sessions',
+        required:true
+    },
+    count:{
+        type:Number,
+        required:true
+    },
+    payment_status:{
+        type:Boolean,
+        required:true
+    },
+    payment_id:{
+        type:String,
+        required:true
+    },
+    status:{
+        type:String,
+        enum:['active','cancelled'],
+        required:true
+    },
+    createdAt:{
+        type:Date,
+        required:true,
+        default: new Date()
+    },
+    updatedAt:{
+        type:Date,
+        required:true,
+        default: new Date(),
+    }
+}, {
+    versionKey: false,
+    autoIndex: false
+})
+
+schema.pre('updateOne', function() {
+    this.set({ updatedAt: new Date() });
+  });
+
+const orderModel=mongoose.model('orders',schema)
+
+
+export{orderModel}
+
+orderModel.createIndexes()
