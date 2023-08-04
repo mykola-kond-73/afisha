@@ -1,7 +1,7 @@
-import { sessionModelType } from "@/types";
+import { SessionModelType } from "@/types";
 import mongoose,{Schema} from "mongoose"
 
-const schema=new mongoose.Schema<sessionModelType>({
+const schema=new mongoose.Schema<SessionModelType>({
     timeline:{
         type:String,
         required:true

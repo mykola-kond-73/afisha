@@ -1,7 +1,7 @@
-import { filmModelType } from "@/types";
+import { FilmModelType } from "@/types";
 import mongoose from "mongoose"
 
-const schema=new mongoose.Schema<filmModelType>({
+const schema=new mongoose.Schema<FilmModelType>({
     title:{
         type:String,
         required:true

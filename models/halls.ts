@@ -1,7 +1,7 @@
-import { hallModelType } from "@/types";
+import { HallModelType } from "@/types";
 import mongoose from "mongoose"
 
-const schema=new mongoose.Schema<hallModelType>({
+const schema=new mongoose.Schema<HallModelType>({
     title:{
         type:String,
         required:true

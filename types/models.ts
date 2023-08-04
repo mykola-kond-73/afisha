@@ -10,14 +10,14 @@ export type CinemaModelType={
     sessions:Array<Schema.Types.ObjectId>
 }&TimestampsType
 
-export type filmModelType={
+export type FilmModelType={
     title:string
     description:string
     rating:Schema.Types.Decimal128
     limitation: '18+'|'16+'|'12+'|'0+'
 }&TimestampsType
 
-export type sessionModelType={
+export type SessionModelType={
     timeline:string
     date:Date
     ticket:Schema.Types.ObjectId
@@ -25,7 +25,7 @@ export type sessionModelType={
     halls:Array<Schema.Types.ObjectId>
 }&TimestampsType
 
-export type hallModelType={
+export type HallModelType={
     title:string
     places:number
     busy:Array<number>
@@ -65,7 +65,7 @@ export type ReserveModelType={
     status:'active'|'cancelled'
 }&TimestampsType
 
-export type tockenModelType={
+export type TockenModelType={
     user:Schema.Types.ObjectId
     refreshToken:string
 }&TimestampsType

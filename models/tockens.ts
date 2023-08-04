@@ -1,7 +1,7 @@
-import { tockenModelType } from "@/types";
+import { TockenModelType } from "@/types";
 import mongoose, { Schema } from "mongoose"
 
-const schema = new mongoose.Schema<tockenModelType>({
+const schema = new mongoose.Schema<TockenModelType>({
     user: {
         type: Schema.Types.ObjectId,
         required: true
