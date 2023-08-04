@@ -1,1 +1,2 @@
+export type {InputArgMutationType,IdArgType,ListQueryArgType, InputCinemaType,InputFilmType,InputSessionType,CreateInputHallType,UpdateInputHallType,InputTicketType,CreateInputUserType,UpdateInputUserType,CreateInputOrderType,UpdateInputOrderReserveType,CreateInputReserveType } from './resolvers';
 export type {CinemaModelType,filmModelType,sessionModelType,hallModelType,TicketModelType,UserModelType,UserNameModelType,OrderModelType,ReserveModelType,tockenModelType} from './models'
