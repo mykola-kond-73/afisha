@@ -30,7 +30,7 @@ schema.pre('updateOne', function () {
     this.set({ updatedAt: new Date() });
 });
 
-const tockenModel = mongoose.model('tockens', schema)
+const tockenModel =mongoose.models.tockens || mongoose.model('tockens', schema)
 
 export { tockenModel }
 

@@ -38,7 +38,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const filmModel=mongoose.model('films',schema)
+const filmModel=mongoose.models.films || mongoose.model('films',schema)
 
 
 export{filmModel}

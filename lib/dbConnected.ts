@@ -32,10 +32,10 @@ async function dbConnect() {
 
     if(!cached.promise){
         const opts={
-            bufferCommands:false
+            bufferCommands:true
         }
 
-        cached.promise=connect(MONGODB_URI!,opts).then(mongoose=>mongoose)
+        cached.promise= connect(MONGODB_URI!,opts).then(mongoose=>mongoose)
     }
 
     try{
@@ -49,4 +49,3 @@ async function dbConnect() {
 }
 
 export default dbConnect
-

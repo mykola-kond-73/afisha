@@ -1,15 +1,30 @@
-import { InputTicketType,InputArgMutationType,IdArgType,ListQueryArgType } from "@/types"
+import { ticketService } from "@/services"
+import { InputArgMutationType, IdArgType, ListQueryArgType, InputTicketType, TicketsFilterType } from "@/types"
 
 const ticketsQueries = {
-    getTickets:(_:any,{offset,count}:ListQueryArgType)=>{},
-    getTicket:(_:any,{id}:IdArgType)=>{}
+    getTickets: async(_: any, { offset, count,filter }: ListQueryArgType&TicketsFilterType) => {
+        const tickets=await ticketService.getTickets({offset,count,filter})
+        return tickets
+     },
+    getTicket: async(_: any, { id }: IdArgType) => { 
+        const ticket=await ticketService.getTicket({id})
+        return ticket
+    }
 }
 
 const ticketsMutations = {
-    createTicket:(_:any,{input}:InputArgMutationType<InputTicketType>)=>{},
-    updateTicket:(_:any,{input}:InputArgMutationType<InputTicketType>)=>{},
-    deleteTicket:(_:any,{id}:IdArgType)=>{}
-
+    createTicket: async (_: any, { input }: InputArgMutationType<InputTicketType>) => {
+        const ticket = await ticketService.createTicket(input)
+        return ticket
+    },
+    updateTicket: async(_: any, { input,id }: InputArgMutationType<InputTicketType>) => {
+        const ticket=await ticketService.updateTicket(id!,input)
+        return ticket
+    },
+    deleteTicket: async(_: any, { id }: IdArgType) => {
+        const ticket=await ticketService.deleteTicket({id})
+        return ticket
+    }
 }
 
 export {

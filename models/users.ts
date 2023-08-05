@@ -59,7 +59,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const userModel=mongoose.model('users',schema)
+const userModel=mongoose.models.users || mongoose.model('users',schema)
 
 
 export{userModel}

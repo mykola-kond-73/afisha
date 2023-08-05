@@ -44,7 +44,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const sessionModel=mongoose.model('sessions',schema)
+const sessionModel=mongoose.models.sessions || mongoose.model('sessions',schema)
 
 
 export{sessionModel}

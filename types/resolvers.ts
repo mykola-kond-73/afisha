@@ -2,6 +2,7 @@ import { UserNameModelType } from "./models"
 
 export type InputArgMutationType<T> = {
     input: T
+    id?:string
 }
 
 export type IdArgType = {

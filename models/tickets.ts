@@ -3,7 +3,7 @@ import mongoose,{ Types} from "mongoose"
 
 const schema=new mongoose.Schema<TicketModelType>({
     cost:{
-        type:Types.Decimal128,
+        type:Number,
         required:true
     },
     createdAt:{
@@ -25,7 +25,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const ticketModel=mongoose.model('tickets',schema)
+const ticketModel=mongoose.models.tickets || mongoose.model('tickets',schema)
 
 
 export{ticketModel}

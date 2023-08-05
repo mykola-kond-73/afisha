@@ -54,7 +54,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const cinemaModel=mongoose.model('cinemas',schema)
+const cinemaModel=mongoose.models.cinemas || mongoose.model('cinemas',schema)
 
 
 export{cinemaModel}

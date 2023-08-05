@@ -40,7 +40,7 @@ schema.pre('updateOne', function () {
     this.set({ updatedAt: new Date() });
 });
 
-const reserveModel = mongoose.model('reserves', schema)
+const reserveModel =mongoose.models.reserves || mongoose.model('reserves', schema)
 
 
 export { reserveModel }

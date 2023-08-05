@@ -48,7 +48,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const orderModel=mongoose.model('orders',schema)
+const orderModel=mongoose.models.orders || mongoose.model('orders',schema)
 
 
 export{orderModel}

@@ -5,6 +5,7 @@ import { NextRequest } from 'next/server'
 import mongoDBConnect from '../../../lib/dbConnected'
 import { authGqlSchema, cinemasGqlSchema, filmsGqlSchema, hallsGqlSchema, ordersGqlSchema, reservesGqlSchema, sessionsGqlSchema, ticketsGqlSchema, tockensGqlSchema, usersGqlSchema } from '@/schemas';
 import { authMutations, cinemasMutations, cinemasQueries, filmsMutations, filmsQueries, hallsMutations, hallsQueries, ordersMutations, ordersQueries, reservesMutations, reservesQueries, sessionsMutations, sessionsQueries, ticketsMutations, ticketsQueries, tockensMutations, tockensQueries, usersMutations, usersQueries } from '@/resolvers';
+import { handleServerError } from '@/utils/errors';
 
 const typeDefs = gql`
     ${cinemasGqlSchema}
@@ -48,6 +49,7 @@ const resolvers = {
 const server = new ApolloServer({
     resolvers,
     typeDefs,
+    formatError:handleServerError
 })
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server)

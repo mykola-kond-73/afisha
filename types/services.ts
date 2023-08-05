@@ -7,14 +7,35 @@ type ReturnedDataFromModelType<T>={
     _id:Types.ObjectId
 }&T
 
+type ListDataType<T extends string,U>={
+    offset:number
+    count:number
+}&Record<T,Array<U>>
+
 export type CinemaDataType=ReturnedDataFromModelType<CinemaModelType>
+export type CinemasDataType= ListDataType<"cinemas",CinemaDataType>
+
 export type FilmDataType=ReturnedDataFromModelType<FilmModelType>
+export type FilmsDataType= ListDataType<"films",FilmDataType>
+
 export type SessionDataType=ReturnedDataFromModelType<SessionModelType>
+export type SessionsDataType= ListDataType<"sessions",SessionDataType>
+
 export type HallDataType=ReturnedDataFromModelType<HallModelType>
+export type HallsDataType= ListDataType<"halls",HallDataType>
+
 export type TicketDataType=ReturnedDataFromModelType<TicketModelType>
+export type TicketsDataType= ListDataType<"tickets",TicketDataType>
+    
 export type UserDataType=ReturnedDataFromModelType<UserModelType>
+export type UsersDataType= ListDataType<"users",UserDataType>
+
 export type OrderDataType=ReturnedDataFromModelType<OrderModelType>
+export type OrdersDataType= ListDataType<"orders",OrderDataType>
+
 export type ReserveDataType=ReturnedDataFromModelType<ReserveModelType>
+export type ReservesDataType= ListDataType<"reserves",ReserveDataType>
+
 export type TockenDataType=ReturnedDataFromModelType<TockenModelType>
 export type AbbreviatedTockenDataType={
     user:Types.ObjectId

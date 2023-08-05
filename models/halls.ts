@@ -38,7 +38,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
-const hallModel=mongoose.model('halls',schema)
+const hallModel=mongoose.models.halls || mongoose.model('halls',schema)
 
 
 export{hallModel}
