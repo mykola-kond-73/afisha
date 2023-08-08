@@ -25,6 +25,7 @@ schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
 
+
 const ticketModel=mongoose.models.tickets || mongoose.model('tickets',schema)
 
 

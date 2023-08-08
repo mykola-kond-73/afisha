@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 const types = gql`
-    type CinemaType{
+    type LoginType{
         user_id:String!
         refreshToken:String!
         accessToken:String!
@@ -22,9 +22,9 @@ const inputs = gql`
 
 const mutations = gql`
     type Mutation{
-        login(input:LoginInput):CinemaType
+        login(input:LoginInput):LoginType
         logout(id:String):Boolean
-        refresh(input:RefreshInput):CinemaType
+        refresh(input:RefreshInput):LoginType
     }
 `
 

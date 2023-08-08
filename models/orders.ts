@@ -12,8 +12,8 @@ const schema=new mongoose.Schema<OrderModelType>({
         ref:'sessions',
         required:true
     },
-    count:{
-        type:Number,
+    places:{
+        type:[Number],
         required:true
     },
     payment_status:{

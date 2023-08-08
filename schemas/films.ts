@@ -11,6 +11,12 @@ const types = gql`
         updatedAt:String!
     }
 
+    type FilmsType{
+        films:[FilmType]!
+        offset:Int!
+        count:Int!
+    }
+
     type UpdatedFilmType{
         _id:ID!
         title:String!
@@ -22,25 +28,37 @@ const types = gql`
 `
 
 const inputs = gql`
-    input FilmInput{
+    input CreateFilmInput{
         title:String!
         description:String!
-        rating:Float!
         limitation:String!
+    }
+
+    input UpdateFilmInput{
+        title:String
+        description:String
+        rating:Float
+        limitation:String
+    }
+    
+    input FilterFilmInput{
+        title:String
+        limitation:String
+        rating:String
     }
 `
 
 const queries = gql`
     type Query{
-        getFilms(offset:Int!,count:Int!):[FilmType]
+        getFilms(offset:Int!,count:Int!,filter:FilterFilmInput!):FilmsType
         getFilm(id:ID!):FilmType
     }
 `
 
 const mutations = gql`
     type Mutation{
-        createFilm(input:FilmInput!):FilmType
-        updateFilm(input:FilmInput!):UpdatedFilmType
+        createFilm(input:CreateFilmInput!):FilmType
+        updateFilm(id:String!,input:UpdateFilmInput!):UpdatedFilmType
         deleteFilm(id:ID!):FilmType
     }
 `

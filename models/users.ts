@@ -33,12 +33,14 @@ const schema=new mongoose.Schema<UserModelType>({
     history:{
         type:[Schema.Types.ObjectId],
         ref:'orders',
-        required:true
+        required:true,
+        default:[]
     },
     reserve:{
         type:[Schema.Types.ObjectId],
         ref:'reserves',
-        required:true
+        required:true,
+        default:[]
     },
     createdAt:{
         type:Date,

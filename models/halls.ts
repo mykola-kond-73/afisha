@@ -12,11 +12,13 @@ const schema=new mongoose.Schema<HallModelType>({
     },
     busy:{
         type:[Number],
-        required:true
+        required:true,
+        default:[]
     },
     reserve:{
         type:[Number],
-        required:true
+        required:true,
+        default:[]
     },
 
     createdAt:{
@@ -37,6 +39,7 @@ const schema=new mongoose.Schema<HallModelType>({
 schema.pre('updateOne', function() {
     this.set({ updatedAt: new Date() });
   });
+
 
 const hallModel=mongoose.models.halls || mongoose.model('halls',schema)
 

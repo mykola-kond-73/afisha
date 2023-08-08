@@ -1,14 +1,30 @@
-import {CreateInputOrderType,UpdateInputOrderReserveType,InputArgMutationType,IdArgType,ListQueryArgType } from "@/types"
+import { orderService } from "@/services"
+import {CreateInputOrderType,UpdateInputOrderReserveType,InputArgMutationType,IdArgType,ListQueryArgType, OrderFilterType } from "@/types"
 
 const ordersQueries = {
-    getOrders:(_:any,{offset,count}:ListQueryArgType)=>{},
-    getOrder:(_:any,{id}:IdArgType)=>{}
+    getOrders:async(_:any,{offset,count,filter}:ListQueryArgType&OrderFilterType)=>{
+        const orders=await orderService.getOrders({offset,count,filter})
+        return orders
+    },
+    getOrder:async(_:any,{id}:IdArgType)=>{
+        const order=await orderService.getOrder({id})
+        return order
+    }
 }
 
 const ordersMutations = {
-    createOrder:(_:any,{input}:InputArgMutationType<CreateInputOrderType>)=>{},
-    updateOrder:(_:any,{input}:InputArgMutationType<UpdateInputOrderReserveType>)=>{},
-    deleteOrder:(_:any,{id}:IdArgType)=>{}
+    createOrder:async(_:any,{input}:InputArgMutationType<CreateInputOrderType>)=>{
+        const order=await orderService.createOrder(input)
+        return order
+    },
+    updateOrder:async(_:any,{id,input}:InputArgMutationType<UpdateInputOrderReserveType>)=>{
+        const order=await orderService.updateOrder(id!,input)
+        return order
+    },
+    deleteOrder:async(_:any,{id}:IdArgType)=>{
+        const order=await orderService.deleteOrder({id})
+        return order
+    }
 
 }
 

@@ -18,17 +18,22 @@ export type InputCinemaType = {
     title: string
     city: string
     street: string
-    rating: number
     films: Array<string>
     halls: Array<string>
     sessions: Array<string>
 }
 
-export type InputFilmType = {
+export type InputCreateFilmType = {
     title: string
     description: string
-    rating: number
     limitation: string
+}
+
+export type InputUpdateFilmType={
+    title?: string
+    description?: string
+    rating?: number
+    limitation?: string
 }
 
 export type InputSessionType = {
@@ -45,10 +50,10 @@ export type CreateInputHallType = {
 }
 
 export type UpdateInputHallType = {
-    title: string
-    places: number
-    busy: Array<number>
-    reserve: Array<number>
+    title?: string
+    places?: number
+    busy?: Array<number>
+    reserve?: Array<number>
 }
 
 export type InputTicketType = {
@@ -70,21 +75,21 @@ type statusType = 'active' | 'cencelled'
 export type CreateInputOrderType = {
     user: string
     sessions: string
-    count: number
+    places:Array<number>
     payment_status: boolean
     payment_id: string
     status: statusType
 }
 
 export type UpdateInputOrderReserveType = {
-    count: number
-    status: statusType
+    places?:Array<number>
+    status?: statusType
 }
 
 export type CreateInputReserveType = {
     user: string
     sessions: string
-    count: number
+    places:Array<number>
     status: statusType
 }
 

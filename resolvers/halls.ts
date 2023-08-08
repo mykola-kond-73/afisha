@@ -1,14 +1,30 @@
-import {CreateInputHallType,UpdateInputHallType,InputArgMutationType,IdArgType,ListQueryArgType } from "@/types"
+import { hallService } from "@/services"
+import {CreateInputHallType,UpdateInputHallType,InputArgMutationType,IdArgType,ListQueryArgType, HallsFilterType } from "@/types"
 
 const hallsQueries = {
-    getHalls:(_:any,{offset,count}:ListQueryArgType)=>{},
-    getHall:(_:any,{id}:IdArgType)=>{}
+    getHalls:async(_:any,{offset,count,filter}:ListQueryArgType&HallsFilterType)=>{
+        const halls=await hallService.getHalls({offset,count,filter})
+        return halls
+    },
+    getHall:async(_:any,{id}:IdArgType)=>{
+        const hall=await hallService.getHall({id})
+        return hall
+    }
 }
 
 const hallsMutations = {
-    createHall:(_:any,{input}:InputArgMutationType<CreateInputHallType>)=>{},
-    updateHall:(_:any,{input}:InputArgMutationType<UpdateInputHallType>)=>{},
-    deleteHall:(_:any,{id}:IdArgType)=>{}
+    createHall:async(_:any,{input}:InputArgMutationType<CreateInputHallType>)=>{
+        const hall=await hallService.createHall(input)
+        return hall
+    },
+    updateHall:async(_:any,{id,input}:InputArgMutationType<UpdateInputHallType>)=>{
+        const hall=await hallService.updateHall(id!,input)
+        return hall
+    },
+    deleteHall:async(_:any,{id}:IdArgType)=>{
+        const hall=await hallService.deleteHall({id})
+        return hall
+    }
 
 }
 

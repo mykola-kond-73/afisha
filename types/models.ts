@@ -4,7 +4,7 @@ export type CinemaModelType={
     title:string
     city:string
     street:string
-    rating:Types.Decimal128
+    rating:number
     films:Array<Schema.Types.ObjectId>
     halls:Array<Schema.Types.ObjectId>
     sessions:Array<Schema.Types.ObjectId>
@@ -13,7 +13,7 @@ export type CinemaModelType={
 export type FilmModelType={
     title:string
     description:string
-    rating:Schema.Types.Decimal128
+    rating:number
     limitation: '18+'|'16+'|'12+'|'0+'
 }&TimestampsType
 
@@ -33,7 +33,7 @@ export type HallModelType={
 }&TimestampsType
 
 export type TicketModelType={
-    cost:Types.Decimal128
+    cost:number
 }&TimestampsType
 
 export type UserNameModelType={
@@ -52,7 +52,7 @@ export type UserModelType={
 export type OrderModelType={
     user:Schema.Types.ObjectId
     session:Schema.Types.ObjectId
-    count:number
+    places:Array<number>
     payment_status:boolean
     payment_id:string
     status:'active'|'cancelled'
@@ -61,7 +61,7 @@ export type OrderModelType={
 export type ReserveModelType={
     user:Schema.Types.ObjectId
     session:Schema.Types.ObjectId
-    count:number
+    places:Array<number>
     status:'active'|'cancelled'
 }&TimestampsType
 
@@ -70,7 +70,7 @@ export type TockenModelType={
     refreshToken:string
 }&TimestampsType
 
-type TimestampsType={
+export type TimestampsType={
     createdAt:Date
     updatedAt:Date
 }

@@ -3,16 +3,25 @@ import gql from "graphql-tag";
 const types = gql`
     type NameType{
         firstname:String!
-        lastName:String!
+        lastname:String!
     }
 
     type UserType{
         _id:ID!
         name:NameType!
-        history:[OrderType]!
-        reserve:[ReserveType]!
+        history:[OrderForUserType]!
+        reserve:[ReserveForUserType]!
         email:String!
-        password:String!
+        createdAt:String!
+        updatedAt:String!
+    }
+
+    type CreatedUserType{
+        _id:ID!
+        name:NameType!
+        history:[String]!
+        reserve:[String]!
+        email:String!
         createdAt:String!
         updatedAt:String!
     }
@@ -21,38 +30,79 @@ const types = gql`
         _id:ID!
         name:NameType!
         updatedAt:String!
+        history:[String]!
+        reserve:[String]!
+    }
+
+    type UsersType{
+        users:[UserType]!
+        offset:Int!
+        count:Int!   
+    }
+
+    type UserForOrderReserveTockenType{
+        _id:ID!
+        name:NameType!
+        email:String!
+        createdAt:String!
+        updatedAt:String!
+    }
+
+    type DeleteUserType{
+        _id:ID!
+        name:NameType!
+        history:[String]!
+        reserve:[String]!
+        email:String!
+        createdAt:String!
+        updatedAt:String!
     }
 `
 
 const inputs = gql`
-    input NameInput{
+    input CreateNameInput{
         firstname:String!
-        lastName:String!
+        lastname:String!
+    }
+
+    input UpdateNameInput{
+        firstname:String
+        lastname:String
     }
 
     input CreateUserInput{
-        name:NameInput!
+        name:CreateNameInput!
         email:String!
         password:String!
     }
 
     input UpdateUserInput{
-        name:NameInput!
+        name:UpdateNameInput
+        history:[String]
+        reserve:[String]
+    }
+
+    input FilterUserType{
+        firstname:String
+        lastname:String
+        order:String
+        reserve:String
+        email:String
     }
 `
 
 const queries = gql`
     type Query{
-        getUsers(offset:Int!,count:Int!):[UserType]
+        getUsers(offset:Int!,count:Int!,filter:FilterUserType!):UsersType
         getUser(id:ID!):UserType
     }
 `
 
 const mutations = gql`
     type Mutation{
-        createUser(input:CreateUserInput!):UserType
-        updateUser(input:UpdateUserInput!):UpdatedUserType
-        deleteUser(id:ID!):UserType
+        createUser(input:CreateUserInput!):CreatedUserType
+        updateUser(id:String!,input:UpdateUserInput!):UpdatedUserType
+        deleteUser(id:ID!):DeleteUserType
     }
 `
 

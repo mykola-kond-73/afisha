@@ -11,8 +11,9 @@ const schema=new mongoose.Schema<FilmModelType>({
         required:true
     },
     rating:{
-        type:mongoose.Types.Decimal128,
-        required:true
+        type:Number,
+        required:true,
+        default:0
     },
     limitation:{
         type:String,

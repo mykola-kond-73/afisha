@@ -12,38 +12,70 @@ const types = gql`
         updatedAt:String!
     }
 
+    type CreateSessionType{
+        _id:ID!
+        timeline:String!
+        date:String!
+        ticket:String!
+        film:String!
+        halls:[String]!
+        createdAt:String!
+        updatedAt:String!
+    }
+
     type UpdatedSessionType{
         _id:ID!
         timeline:String!
         date:String!
-        ticket:TicketType!
-        film:FilmType!
-        halls:[HallType]!
+        ticket:String!
+        film:String!
+        halls:[String]!
         updatedAt:String!
+    }
+
+    type SessionsType{
+        sessions:[SessionType]!
+        offset:Int!
+        count:Int!
     }
 `
 
 const inputs = gql`
-    input SessionInput{
+    input CreateSessionInput{
         timeline:String!
         date:String!
         ticket:String!
         film:String!
         halls:[String!]!
     }
+
+    input UpdateSessionInput{
+        timeline:String
+        date:String
+        ticket:String
+        film:String
+        halls:[String!]
+    }
+
+    input FilterSessionInput{
+        timeline:String
+        date:String
+        film:String
+        cost:String
+    }
 `
 
 const queries = gql`
     type Query{
-        getSessions(offset:Int!,count:Int!):[SessionType]
+        getSessions(offset:Int!,count:Int!,filter:FilterSessionInput!):SessionsType
         getSession(id:ID!):SessionType
     }
 `
 
 const mutations = gql`
     type Mutation{
-        createSession(input:SessionInput!):SessionType
-        updateSession(input:SessionInput!):UpdatedSessionType
+        createSession(input:CreateSessionInput!):CreateSessionType
+        updateSession(id:String!, input:UpdateSessionInput!):UpdatedSessionType
         deleteSession(id:ID!):SessionType
     }
 `

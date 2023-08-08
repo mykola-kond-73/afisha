@@ -8,9 +8,9 @@ const types = gql`
 
     type OrderType{
         _id:ID!
-        user:UserType!
-        sessions:SessionType!
-        count:Int!
+        user:UserForOrderReserveTockenType!
+        session:SessionType!
+        places:[Int!]!
         payment_status:Boolean!
         payment_id:String!
         status:OrderReserveStatus!
@@ -20,8 +20,25 @@ const types = gql`
 
     type UpdatedOrderType{
         _id:ID!
-        count:Int!
+        places:[Int!]!
         status:OrderReserveStatus!
+        updatedAt:String!
+    }
+
+    type OrdersType{
+        orders:[OrderType]!
+        offset:Int!
+        count:Int!
+    }
+
+    type OrderForUserType{
+        _id:ID!
+        session:SessionType!
+        places:[Int!]!
+        payment_status:Boolean!
+        payment_id:String!
+        status:OrderReserveStatus!
+        createdAt:String!
         updatedAt:String!
     }
 `
@@ -29,22 +46,31 @@ const types = gql`
 const inputs = gql`
     input CreateOrderInput{
         user:String!
-        sessions:String!
-        count:Int!
+        session:String!
+        places:[Int!]!
         payment_status:Boolean!
         payment_id:String!
         status:OrderReserveStatus!
     }
 
     input UpdateOrderInput{
-        count:Int!
-        status:OrderReserveStatus!
+        places:[Int!]
+        status:OrderReserveStatus
+    }
+
+    input FilterOrderInput{
+        user:String
+        session:String
+        place:Int
+        status:OrderReserveStatus
+        payment_status:String
+        payment_id:String
     }
 `
 
 const queries = gql`
     type Query{
-        getOrders(offset:Int!,count:Int!):[OrderType]
+        getOrders(offset:Int!,count:Int!,filter:FilterOrderInput!):OrdersType
         getOrder(id:ID!):OrderType
     }
 `
@@ -52,7 +78,7 @@ const queries = gql`
 const mutations = gql`
     type Mutation{
         createOrder(input:CreateOrderInput!):OrderType
-        updateOrder(input:UpdateOrderInput!):UpdatedOrderType
+        updateOrder(id:String!,input:UpdateOrderInput!):UpdatedOrderType
         deleteOrder(id:ID!):OrderType
     }
 `

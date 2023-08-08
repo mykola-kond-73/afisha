@@ -3,9 +3,9 @@ import gql from "graphql-tag";
 const types = gql`
     type ReserveType{
         _id:ID!
-        user:UserType!
-        sessions:SessionType!
-        count:Int!
+        user:UserForOrderReserveTockenType!
+        session:SessionType!
+        places:[Int!]!
         status:OrderReserveStatus!
         createdAt:String!
         updatedAt:String!
@@ -13,8 +13,23 @@ const types = gql`
 
     type UpdatedReserveType{
         _id:ID!
-        count:Int!
+        places:[Int!]!
         status:OrderReserveStatus!
+        updatedAt:String!
+    }
+    
+    type ReservesType{
+        reserves:[ReserveType]!
+        offset:Int!
+        count:Int!
+    }
+
+    type ReserveForUserType{
+        _id:ID!
+        session:SessionType!
+        places:[Int!]!
+        status:OrderReserveStatus!
+        createdAt:String!
         updatedAt:String!
     }
 `
@@ -22,20 +37,27 @@ const types = gql`
 const inputs = gql`
     input CreateReserveInput{
         user:String!
-        sessions:String!
-        count:Int!
+        session:String!
+        places:[Int!]!
         status:OrderReserveStatus!
     }
 
     input UpdateReserveInput{
-        count:Int!
-        status:OrderReserveStatus!
+        places:[Int!]
+        status:OrderReserveStatus
+    }
+
+    input FilterReserveInput{
+        user:String
+        session:String
+        place:Int
+        status:OrderReserveStatus
     }
 `
 
 const queries = gql`
     type Query{
-        getReserves(offset:Int!,count:Int!):[ReserveType]
+        getReserves(offset:Int!,count:Int!,filter:FilterReserveInput!):ReservesType
         getReserve(id:ID!):ReserveType
     }
 `
@@ -43,7 +65,7 @@ const queries = gql`
 const mutations = gql`
     type Mutation{
         createReserve(input:CreateReserveInput!):ReserveType
-        updateReserve(input:UpdateReserveInput!):UpdatedReserveType
+        updateReserve(id:String!,input:UpdateReserveInput!):UpdatedReserveType
         deleteReserve(id:ID!):ReserveType
     }
 `

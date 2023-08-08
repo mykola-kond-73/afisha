@@ -33,7 +33,7 @@ const inputs = gql`
 
 const queries = gql`
     type Query{
-        getTickets(offset:Int!,count:Int!,filter:FilterTicketInput):TicketsType
+        getTickets(offset:Int!,count:Int!,filter:FilterTicketInput!):TicketsType
         getTicket(id:ID!):TicketType
     }
 `

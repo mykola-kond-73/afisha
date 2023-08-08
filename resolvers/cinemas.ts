@@ -1,14 +1,30 @@
-import { InputCinemaType,InputArgMutationType,IdArgType,ListQueryArgType } from "@/types"
+import { cinemaService } from "@/services"
+import { InputCinemaType,InputArgMutationType,IdArgType,ListQueryArgType, CinemasFilterType } from "@/types"
 
 const cinemasQueries = {
-    getCinemas:(_:any,{offset,count}:ListQueryArgType)=>{},
-    getCinema:(_:any,{id}:IdArgType)=>{}
+    getCinemas:async(_:any,{offset,count,filter}:ListQueryArgType&CinemasFilterType)=>{
+        const cinemas=await cinemaService.getCinemas({offset,count,filter})
+        return cinemas 
+    },
+    getCinema:async(_:any,{id}:IdArgType)=>{
+        const cinema=await cinemaService.getCinema({id})
+        return cinema
+    }
 }
 
 const cinemasMutations = {
-    createCinema:(_:any,{input}:InputArgMutationType<InputCinemaType>)=>{},
-    updateCinema:(_:any,{input}:InputArgMutationType<InputCinemaType>)=>{},
-    deleteCinema:(_:any,{id}:IdArgType)=>{}
+    createCinema:async(_:any,{input}:InputArgMutationType<InputCinemaType>)=>{
+        const cinema=await cinemaService.createCinema(input)
+        return cinema
+    },
+    updateCinema:async(_:any,{id,input}:InputArgMutationType<Partial<InputCinemaType>>)=>{
+        const cinema=await cinemaService.updateCinema(id!,input)
+        return cinema
+    },
+    deleteCinema:async(_:any,{id}:IdArgType)=>{
+        const cinema=await cinemaService.deleteCinema({id})
+        return cinema
+    }
 }
 
 export {

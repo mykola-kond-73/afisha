@@ -15,8 +15,9 @@ const schema=new mongoose.Schema<CinemaModelType>({
         required:true
     },
     rating:{
-        type:Schema.Types.Decimal128,
-        required:true
+        type:Number,
+        required:true,
+        default:0
     },
     films:{
         type:[Schema.Types.ObjectId],

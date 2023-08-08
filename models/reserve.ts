@@ -12,8 +12,8 @@ const schema = new mongoose.Schema<ReserveModelType>({
         ref: 'sessions',
         required: true
     },
-    count: {
-        type: Number,
+    places: {
+        type: [Number],
         required: true
     },
     status: {
