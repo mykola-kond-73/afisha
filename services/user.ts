@@ -101,43 +101,10 @@ class User {
 
         return user as GetUserDataType
     }
-    async getUserByEmail({ email }: { email: string }): Promise<GetUserDataType> {
+    async getUserByEmail({ email }: { email: string }): Promise<UserDataType> {
         const user = await userModel.findOne({ email })
-            .select("-password")
-            .populate([
-                {
-                    path: "history",
-                    populate: [
-                        {
-                            path: "session",
-                            populate: [
-                                { path: "ticket" },
-                                { path: "halls" },
-                                { path: "film" }
-                            ]
-                        },
-                    ],
-                    select: "-user"
-                },
-                {
-                    path: "reserve",
-                    populate: [
-                        {
-                            path: "session",
-                            populate: [
-                                { path: "ticket" },
-                                { path: "halls" },
-                                { path: "film" }
-                            ]
-                        },
-                    ],
-                    select: "-user"
-                },
 
-            ])
-            .lean()
-
-        return user as GetUserDataType
+        return user as UserDataType
     }
     async createUser(input: CreateInputUserType): Promise<CreateUserDataType> {
         if (input.password.length < 8) {

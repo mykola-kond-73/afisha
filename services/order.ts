@@ -7,18 +7,10 @@ import { filterPlaces } from '@/utils/servicesUtils';
 
 class Order {
     private static instance: Order | null = null
-    // private stripe:Stripe
 
     constructor() {
         if (Order.instance) return Order.instance
-        else {
-            // const stripeItem=new Stripe(process.env.STRIPE_PRIVATE_KEY||"",{
-            //     apiVersion:'2022-11-15'
-            // })
-            // this.stripe=stripeItem
-
-            Order.instance = this
-        }
+        else Order.instance = this
     }
 
     async getOrders({ offset, count, filter }: ListQueryArgType & OrderFilterType): Promise<OrdersDataType> {

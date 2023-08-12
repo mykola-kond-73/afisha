@@ -85,14 +85,15 @@ export type TockenDataType=ReturnedDataFromModelType<TockenModelType>
 export type TockensDataType=ListDataType<"tockens",TockenDataType>
 
 export type AbbreviatedTockenDataType={
+    _id:string
     user:Types.ObjectId
     refreshToken:string
 }
 export type GeneratedTockensDataType={
-    accessTocken:string
-    refreshTocken:string
+    accessToken:string
+    refreshToken:string
 }
-export type RefreshTockenDataType=GeneratedTockensDataType&{userId:string}
+export type AuthTockenDataType=GeneratedTockensDataType&{user:Types.ObjectId}
 
 
 export type UpdatedCinemaDataType=RemovedCreateAtType<CinemaDataType>

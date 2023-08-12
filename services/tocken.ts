@@ -1,5 +1,7 @@
 import {   AbbreviatedTockenDataType, GeneratedTockensDataType, IdArgType, ListQueryArgType, TockenDataType, TockenFilterType, TockensDataType, UserArgServiceType} from "@/types";
 import { tockenModel} from "@/models";
+import jwt from 'jsonwebtoken';
+import { Types } from "mongoose";
 
 class Tocken {
     private static instance:Tocken |null=null
@@ -25,11 +27,45 @@ class Tocken {
             count:tockens.length
         }
     }
-//     async validateAccessToken(tocken:string):Promise<UserArgServiceType>{}
-//     async validateRefreshToken(tocken:string):Promise<UserArgServiceType>{}
-//     async generateTokens(user:UserArgServiceType):Promise<GeneratedTockensDataType>{}
-//     async saveToken(userId:string,tocken:string):Promise<TockenDataType>{}
-//     async findToken(tocken:string):Promise<AbbreviatedTockenDataType>{}
+    async validateAccessToken(tocken:string):Promise<UserArgServiceType | null>{
+        try{
+            const userData= jwt.verify(tocken,process.env.JWT_ACCESS_TOKEN_SECRET!)
+            return userData as UserArgServiceType
+        }catch(error){
+            return null
+        }
+    }
+    async validateRefreshToken(tocken:string):Promise<UserArgServiceType | null>{
+        try{
+            const userData= jwt.verify(tocken,process.env.JWT_REFRESH_TOKEN_SECRET!)
+            return userData as UserArgServiceType
+        }catch(error){
+            return null
+        }
+    }
+    async generateTokens(user:UserArgServiceType):Promise<GeneratedTockensDataType>{
+        const accessToken = jwt.sign({...user}, process.env.JWT_ACCESS_TOKEN_SECRET!, { expiresIn:process.env.JWT_ACCESS_TOKEN_TIME_LIFE})
+        const refreshToken= jwt.sign({...user}, process.env.JWT_REFRESH_TOKEN_SECRET!, { expiresIn:process.env.JWT_REFRESH_TOKEN_TIME_LIFE})
+
+        return {
+            accessToken,
+            refreshToken
+        }
+    }
+    async saveToken(userId:Types.ObjectId,tocken:string):Promise<TockenDataType>{
+        const prevTockenData=await tockenModel.findOne({user:userId})
+        if(prevTockenData){
+            await tockenModel.updateOne({_id:prevTockenData._id},{refreshToken:tocken})
+            const tockenData=await tockenModel.findById(prevTockenData._id)
+            return tockenData
+        }
+        const tockenData=await tockenModel.create({user:userId,refreshToken:tocken})
+        return tockenData
+    }
+    async findTokenByUserId(userId:Types.ObjectId):Promise<AbbreviatedTockenDataType>{
+        const tockenData=await tockenModel.findOne({user:userId})
+        return tockenData
+    }
     async deleteTocken({id}:IdArgType):Promise<AbbreviatedTockenDataType>{
         const tocken=await tockenModel.findByIdAndDelete(id)
         return tocken

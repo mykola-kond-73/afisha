@@ -10,7 +10,7 @@ export type {
     TockenFilterType
 } from './filters'
 export type {
-    RefreshTockenDataType,
+    AuthTockenDataType,
     GeneratedTockensDataType,
     AbbreviatedTockenDataType,
     TockenDataType,

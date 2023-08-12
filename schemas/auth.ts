@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const types = gql`
     type LoginType{
-        user_id:String!
+        user:String!
         refreshToken:String!
         accessToken:String!
     }
@@ -13,18 +13,13 @@ const inputs = gql`
         email:String!
         password:String!
     }
-
-    input RefreshInput{
-        user_id:String!
-        refreshToken:String!
-    }
 `
 
 const mutations = gql`
     type Mutation{
-        login(input:LoginInput):LoginType
-        logout(id:String):Boolean
-        refresh(input:RefreshInput):LoginType
+        login(input:LoginInput!):LoginType
+        logout(refreshToken:String!):Boolean
+        refresh(refreshToken:String!):LoginType
     }
 `
 
