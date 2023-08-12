@@ -22,7 +22,7 @@ export type SessionModelType={
     date:Date
     ticket:Schema.Types.ObjectId
     film:Schema.Types.ObjectId
-    halls:Array<Schema.Types.ObjectId>
+    hall:Schema.Types.ObjectId
 }&TimestampsType
 
 export type HallModelType={

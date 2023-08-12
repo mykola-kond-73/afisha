@@ -21,8 +21,6 @@ const types = gql`
         _id:ID!
         title:String!
         places:Int!
-        busy:[Int]!
-        reserve:[Int]!
         updatedAt:String!
     }
 `
@@ -36,8 +34,6 @@ const inputs = gql`
     input UpdateHallInput{
         title:String
         places:Int
-        busy:[Int]
-        reserve:[Int]
     }
 
     input FilterHallInput{

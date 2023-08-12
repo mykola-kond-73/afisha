@@ -44,7 +44,8 @@ export type {
     HallsDataType,
     SessionsDataType,
     FilmsDataType,
-    CinemasDataType
+    CinemasDataType,
+    CancelOrderReserveDataType
 } from './services'
 export type {
     InputArgMutationType,

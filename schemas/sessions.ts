@@ -7,7 +7,7 @@ const types = gql`
         date:String!
         ticket:TicketType!
         film:FilmType!
-        halls:[HallType]!
+        hall:HallType!
         createdAt:String!
         updatedAt:String!
     }
@@ -18,7 +18,7 @@ const types = gql`
         date:String!
         ticket:String!
         film:String!
-        halls:[String]!
+        hall:String!
         createdAt:String!
         updatedAt:String!
     }
@@ -29,7 +29,7 @@ const types = gql`
         date:String!
         ticket:String!
         film:String!
-        halls:[String]!
+        hall:String!
         updatedAt:String!
     }
 
@@ -46,7 +46,7 @@ const inputs = gql`
         date:String!
         ticket:String!
         film:String!
-        halls:[String!]!
+        hall:String!
     }
 
     input UpdateSessionInput{
@@ -54,7 +54,7 @@ const inputs = gql`
         date:String
         ticket:String
         film:String
-        halls:[String!]
+        hall:String!
     }
 
     input FilterSessionInput{

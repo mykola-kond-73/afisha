@@ -1,26 +1,41 @@
-// import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer'
 
-// class Mail {
-//     private transporter:nodemailer.Transporter
+class Mail {
+    private transporter: nodemailer.Transporter|null=null
+    private static instance: Mail | null = null
 
-//     constructor() {
-//         const createTestAcc=async()=>await nodemailer.createTestAccount()
-//         let testEmailAccount:any =createTestAcc() 
+    constructor() {
+        if (Mail.instance) return Mail.instance
+        else {
+            let transporterItem = nodemailer.createTransport({
+                host: 'smtp.ethereal.email',
+                port: 587,
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASSWORD
+                }
+            });
 
-//         let transporterItem = nodemailer.createTransport({
-//             host: 'smtp.ethereal.email',
-//             port: 587,
-//             secure: false,
-//             auth: {
-//                 user: testEmailAccount.user,
-//                 pass: testEmailAccount.pass,
-//             },
-//         });
+            this.transporter = transporterItem
 
-//         this.transporter=transporterItem
-//     }
+            Mail.instance = this
+        }
+    }
 
-//     async sendMail(text: string):Promise<boolean> { }
-// }
+    sendMail(text: string, email: string): boolean {
+        this.transporter!.sendMail({
+            from: `<${process.env.SMTP_USER}>`,
+            to: email,
+            subject: 'Message from Afisha',
+            text: text,
+        },
+            (error, info) => {
+                if (error) console.log(error)
+                console.log(info)
+            })
 
-// export const mailService = new Mail()
+        return true
+    }
+}
+
+export const mailService = new Mail()

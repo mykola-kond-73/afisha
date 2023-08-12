@@ -2,13 +2,20 @@ import { IdArgType, ListQueryArgType,InputSessionType, UpdateSessionDataType, Se
 import {sessionModel } from "@/models";
 
 class Session {
+    private static instance:Session|null=null
+
+    constructor(){
+        if(Session.instance) return Session .instance
+        else Session.instance=this
+    }
+
     async getSessions({offset,count,filter}:ListQueryArgType&SessionsFilterType):Promise<SessionsDataType>{
         let search={}
         if(filter?.cost){
             const [from,to]=filter.cost.split('-')
             search={...search, "ticket.cost": { $gte: from, $lte: to } }
         }
-        if(filter?.film) search={...search, "film.title":filter.film}
+        if(filter?.film) search={...search, film:filter.film}
         if(filter?.date) search={...search, date:filter.date}
         if(filter?.timeline) search={...search, timeline:filter.timeline}
 
@@ -16,7 +23,7 @@ class Session {
             .skip(offset)
             .limit(count)
             .populate('ticket')
-            .populate('halls')
+            .populate('hall')
             .populate('film')
             .lean()
 
@@ -29,7 +36,7 @@ class Session {
     async getSession({id}:IdArgType):Promise<GetSessionDataType>{
         const session=await sessionModel.findById(id)
             .populate('ticket')
-            .populate('halls')
+            .populate('hall')
             .populate('film')
             .lean()
         return session as GetSessionDataType

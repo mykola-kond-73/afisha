@@ -19,7 +19,8 @@ const schema = new mongoose.Schema<ReserveModelType>({
     status: {
         type: String,
         enum: ['active', 'cancelled'],
-        required: true
+        required: true,
+        default:"active"
     },
     createdAt: {
         type: Date,

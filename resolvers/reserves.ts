@@ -21,6 +21,10 @@ const reservesMutations = {
         const reserve=await reserveService.updateReserve(id!,input)
         return reserve
     },
+    cancelReserve:async(_:any,{id}:IdArgType)=>{
+        const order=await reserveService.cancelReserve(id)
+        return order
+    },
     deleteReserve:async(_:any,{id}:IdArgType)=>{
         const reserve=await reserveService.deleteReserve({id})
         return reserve

@@ -21,6 +21,10 @@ const ordersMutations = {
         const order=await orderService.updateOrder(id!,input)
         return order
     },
+    cancelOrder:async(_:any,{id}:IdArgType)=>{
+        const order=await orderService.cancelOrder(id)
+        return order
+    },
     deleteOrder:async(_:any,{id}:IdArgType)=>{
         const order=await orderService.deleteOrder({id})
         return order

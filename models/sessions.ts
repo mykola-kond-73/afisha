@@ -20,8 +20,8 @@ const schema=new mongoose.Schema<SessionModelType>({
         ref:'films',
         required:true
     },
-    halls:{
-        type:[Schema.Types.ObjectId],
+    hall:{
+        type:Schema.Types.ObjectId,
         ref:'halls',
         required:true
     },

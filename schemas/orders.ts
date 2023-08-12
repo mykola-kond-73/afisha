@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 const types = gql`
     enum OrderReserveStatus{
         active
-        cencelled
+        cancelled
     }
 
     type OrderType{
@@ -21,8 +21,13 @@ const types = gql`
     type UpdatedOrderType{
         _id:ID!
         places:[Int!]!
-        status:OrderReserveStatus!
         updatedAt:String!
+    }
+
+    type CanceledOrderType{
+        _id:ID
+        status:OrderReserveStatus
+        updatedAt:String
     }
 
     type OrdersType{
@@ -50,12 +55,10 @@ const inputs = gql`
         places:[Int!]!
         payment_status:Boolean!
         payment_id:String!
-        status:OrderReserveStatus!
     }
 
     input UpdateOrderInput{
         places:[Int!]
-        status:OrderReserveStatus
     }
 
     input FilterOrderInput{
@@ -79,6 +82,7 @@ const mutations = gql`
     type Mutation{
         createOrder(input:CreateOrderInput!):OrderType
         updateOrder(id:String!,input:UpdateOrderInput!):UpdatedOrderType
+        cancelOrder(id:String!):CanceledOrderType
         deleteOrder(id:ID!):OrderType
     }
 `

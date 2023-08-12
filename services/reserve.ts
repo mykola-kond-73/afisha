@@ -1,12 +1,21 @@
-import { CreateInputReserveType, GetReserveDataType, IdArgType, ListQueryArgType, ReserveDataType, ReserveFilterType, ReservesDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
+import { CancelOrderReserveDataType, CreateInputReserveType, GetReserveDataType, IdArgType, ListQueryArgType, ReserveDataType, ReserveFilterType, ReservesDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
 import { reserveModel } from "@/models";
+import { hallService, sessionService } from ".";
+import { filterPlaces } from "@/utils/servicesUtils";
 
 class Reserve {
+    private static instance:Reserve|null=null
+
+    constructor(){
+        if(Reserve.instance) return Reserve.instance
+        else Reserve.instance=this
+    }
+
     async getReserves({ offset, count, filter }: ListQueryArgType & ReserveFilterType): Promise<ReservesDataType> {
         let search = {}
-        if (filter?.user) search = { ...search, "user._id": filter.user }
+        if (filter?.user) search = { ...search, user: filter.user }
         if (filter?.place) search = { ...search, places: { $in: [filter.place] } }
-        if (filter?.session) search = { ...search, "session._id": filter.session }
+        if (filter?.session) search = { ...search, session: filter.session }
         if (filter?.status) search = { ...search, status: filter.status }
 
         const reserves: GetReserveDataType[] = await reserveModel.find(search)
@@ -17,7 +26,7 @@ class Reserve {
                     path: "session",
                     populate: [
                         { path: "ticket" },
-                        { path: "halls" },
+                        { path: "hall" },
                         { path: "film" }
                     ]
                 },
@@ -42,7 +51,7 @@ class Reserve {
                     path: "session",
                     populate: [
                         { path: "ticket" },
-                        { path: "halls" },
+                        { path: "hall" },
                         { path: "film" }
                     ]
                 },
@@ -56,19 +65,40 @@ class Reserve {
         return reserve as GetReserveDataType
     }
     async createReserve(input: CreateInputReserveType): Promise<GetReserveDataType> {
+        const hall = (await sessionService.getSession({ id: input.session })).hall
+
+        filterPlaces(hall,input.places)
+
+        await hallService.reservePlaces(hall._id,input.places)
+
         const reserve = await reserveModel.create(input)
-        const reserveResult = await this.getReserve({id:reserve._id})
-        return reserveResult 
+        const reserveResult=await this.getReserve({id:reserve._id})
+
+        return reserveResult
     }
     async updateReserve(id: string, input: UpdateInputOrderReserveType): Promise<UpdateOrderReserveDataType> {
         await reserveModel.updateOne({ _id: id }, input)
 
         const ticket = await reserveModel.findById(id)
-            .select('-createdAt -user -session')
+            .select('-createdAt -user -session -status')
             .lean()
 
         return ticket as UpdateOrderReserveDataType
     }
+
+    async cancelReserve(id:string):Promise<CancelOrderReserveDataType>{
+        const reservePlaces=(await this.getReserve({id})).places
+        const hall=(await this.getReserve({id})).session.hall
+
+        await hallService.cancelReservePlaces(hall._id,reservePlaces)
+
+        await reserveModel.updateOne({ _id: id },{status:"cancelled"})
+
+        const order = await reserveModel.findById(id,{updatedAt:1,status:1})
+
+        return order as CancelOrderReserveDataType
+    }
+
     async deleteReserve({ id }: IdArgType): Promise<ReserveDataType> {
         const reserve = await reserveModel.findByIdAndDelete(id)
         return reserve

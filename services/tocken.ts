@@ -2,9 +2,16 @@ import {   AbbreviatedTockenDataType, GeneratedTockensDataType, IdArgType, ListQ
 import { tockenModel} from "@/models";
 
 class Tocken {
+    private static instance:Tocken |null=null
+
+    constructor(){
+        if(Tocken .instance) return Tocken .instance
+        else Tocken .instance=this
+    }
+
     async getTockens({offset,count,filter}:ListQueryArgType&TockenFilterType):Promise<TockensDataType>{
         let search={}
-        if(filter?.user) search={...search, "user._id":filter.user}
+        if(filter?.user) search={...search, user:filter.user}
 
         const tockens:TockenDataType[]=await tockenModel.find(search)
             .skip(offset)

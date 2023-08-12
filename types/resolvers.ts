@@ -41,7 +41,7 @@ export type InputSessionType = {
     date: string
     ticket: string
     film: string
-    halls: Array<string>
+    hall: string
 }
 
 export type CreateInputHallType = {
@@ -52,8 +52,6 @@ export type CreateInputHallType = {
 export type UpdateInputHallType = {
     title?: string
     places?: number
-    busy?: Array<number>
-    reserve?: Array<number>
 }
 
 export type InputTicketType = {
@@ -74,23 +72,20 @@ type statusType = 'active' | 'cencelled'
 
 export type CreateInputOrderType = {
     user: string
-    sessions: string
+    session: string
     places:Array<number>
     payment_status: boolean
     payment_id: string
-    status: statusType
 }
 
 export type UpdateInputOrderReserveType = {
     places?:Array<number>
-    status?: statusType
 }
 
 export type CreateInputReserveType = {
     user: string
-    sessions: string
+    session: string
     places:Array<number>
-    status: statusType
 }
 
 export type InputLoginType = {

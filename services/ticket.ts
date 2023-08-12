@@ -2,6 +2,13 @@ import {  IdArgType,ListQueryArgType, TicketDataType, UpdatedTicketDataType, Tic
 import { ticketModel} from "@/models";
 
 class Ticket {
+    private static instance:Ticket|null=null
+
+    constructor(){
+        if(Ticket.instance) return Ticket.instance
+        else Ticket.instance=this
+    }
+
     async getTickets({offset,count,filter}:ListQueryArgType&TicketsFilterType):Promise<TicketsDataType>{
         let search={}
         if(filter?.range){

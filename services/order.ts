@@ -1,23 +1,31 @@
-import { CreateInputOrderType, GetOrderDataType, IdArgType, ListQueryArgType, OrderDataType, OrderFilterType, OrdersDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
+import { GraphQLError } from 'graphql';
+import { CancelOrderReserveDataType, CreateInputOrderType, GetOrderDataType, IdArgType, ListQueryArgType, OrderDataType, OrderFilterType, OrdersDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
 import { orderModel } from "@/models";
 import Stripe from 'stripe'
+import { hallService, mailService, sessionService } from '.';
+import { filterPlaces } from '@/utils/servicesUtils';
 
 class Order {
-
+    private static instance: Order | null = null
     // private stripe:Stripe
 
-    // constructor(){
-    //     const stripeItem=new Stripe(process.env.STRIPE_PRIVATE_KEY||"",{
-    //         apiVersion:'2022-11-15'
-    //     })
-    //     this.stripe=stripeItem
-    // }
+    constructor() {
+        if (Order.instance) return Order.instance
+        else {
+            // const stripeItem=new Stripe(process.env.STRIPE_PRIVATE_KEY||"",{
+            //     apiVersion:'2022-11-15'
+            // })
+            // this.stripe=stripeItem
+
+            Order.instance = this
+        }
+    }
 
     async getOrders({ offset, count, filter }: ListQueryArgType & OrderFilterType): Promise<OrdersDataType> {
         let search = {}
-        if (filter?.user) search = { ...search, "user._id": filter.user }
+        if (filter?.user) search = { ...search, user: filter.user }
         if (filter?.place) search = { ...search, places: { $in: [filter.place] } }
-        if (filter?.session) search = { ...search, "session._id": filter.session }
+        if (filter?.session) search = { ...search, session: filter.session }
         if (filter?.status) search = { ...search, status: filter.status }
         if (filter?.payment_status) search = { ...search, payment_status: filter.payment_status }
         if (filter?.payment_id) search = { ...search, payment_id: filter.payment_id }
@@ -30,7 +38,7 @@ class Order {
                     path: "session",
                     populate: [
                         { path: "ticket" },
-                        { path: "halls" },
+                        { path: "hall" },
                         { path: "film" }
                     ]
                 },
@@ -55,7 +63,7 @@ class Order {
                     path: "session",
                     populate: [
                         { path: "ticket" },
-                        { path: "halls" },
+                        { path: "hall" },
                         { path: "film" }
                     ]
                 },
@@ -69,19 +77,43 @@ class Order {
         return order as GetOrderDataType
     }
     async createOrder(input: CreateInputOrderType): Promise<GetOrderDataType> {
+        const hall = (await sessionService.getSession({ id: input.session })).hall
+
+        filterPlaces(hall, input.places)
+
+        await hallService.orderPlaces(hall._id, input.places)
+
         const order = await orderModel.create(input)
-        const orderResult = await this.getOrder({id:order._id})
-        return orderResult 
+        const orderResult = await this.getOrder({ id: order._id })
+        //todo не працює
+        mailService.sendMail("first email", orderResult.user.email)
+        //todo не працює
+
+        return orderResult
     }
     async updateOrder(id: string, input: UpdateInputOrderReserveType): Promise<UpdateOrderReserveDataType> {
         await orderModel.updateOne({ _id: id }, input)
 
         const ticket = await orderModel.findById(id)
-            .select('-createdAt -user -session')
+            .select('-createdAt -user -session -status')
             .lean()
 
         return ticket as UpdateOrderReserveDataType
     }
+
+    async cancelOrder(id: string): Promise<CancelOrderReserveDataType> {
+        const orderPlaces = (await this.getOrder({ id })).places
+        const hall = (await this.getOrder({ id })).session.hall
+
+        await hallService.cancelOrderPlaces(hall._id, orderPlaces)
+
+        await orderModel.updateOne({ _id: id }, { status: "cancelled" })
+
+        const order = await orderModel.findById(id, { updatedAt: 1, status: 1 })
+
+        return order as CancelOrderReserveDataType
+    }
+
     async deleteOrder({ id }: IdArgType): Promise<OrderDataType> {
         const order = await orderModel.findByIdAndDelete(id)
         return order

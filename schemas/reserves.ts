@@ -14,7 +14,6 @@ const types = gql`
     type UpdatedReserveType{
         _id:ID!
         places:[Int!]!
-        status:OrderReserveStatus!
         updatedAt:String!
     }
     
@@ -22,6 +21,12 @@ const types = gql`
         reserves:[ReserveType]!
         offset:Int!
         count:Int!
+    }
+
+    type CanceledReserveType{
+        _id:ID
+        status:OrderReserveStatus
+        updatedAt:String
     }
 
     type ReserveForUserType{
@@ -39,12 +44,10 @@ const inputs = gql`
         user:String!
         session:String!
         places:[Int!]!
-        status:OrderReserveStatus!
     }
 
     input UpdateReserveInput{
         places:[Int!]
-        status:OrderReserveStatus
     }
 
     input FilterReserveInput{
@@ -66,6 +69,7 @@ const mutations = gql`
     type Mutation{
         createReserve(input:CreateReserveInput!):ReserveType
         updateReserve(id:String!,input:UpdateReserveInput!):UpdatedReserveType
+        cancelReserve(id:String!):CanceledReserveType
         deleteReserve(id:ID!):ReserveType
     }
 `

@@ -6,8 +6,10 @@ export const handleServerError=(formattedError:GraphQLFormattedError,error:any)=
     switch(formattedError.extensions!.code){
         case ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED:
             validationErrorLogger.error(`${JSON.stringify(error)}`)
+            break
         case "UNAUTHENTICSTED":
             authErrorLogger.error(`${JSON.stringify(error)}`)
+            break
         default:
             errorLogger.error(`${JSON.stringify(error)}`)
     }

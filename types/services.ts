@@ -33,7 +33,7 @@ export type GetSessionDataType=ReturnedDataFromModelType<{
     date:Date
     ticket:TicketDataType
     film:FilmDataType
-    halls:Array<HallDataType>
+    hall:HallDataType
     }& TimestampsType>
 export type SessionsDataType= ListDataType<"sessions",GetSessionDataType>
 
@@ -98,11 +98,11 @@ export type RefreshTockenDataType=GeneratedTockensDataType&{userId:string}
 export type UpdatedCinemaDataType=RemovedCreateAtType<CinemaDataType>
 export type UpdateFilmDataType=RemovedCreateAtType<FilmDataType>
 export type UpdateSessionDataType=RemovedCreateAtType<SessionDataType>
-export type UpdatedHallDataType=RemovedCreateAtType<HallDataType>
+export type UpdatedHallDataType=RemovedCreateAtType<Omit<HallDataType,"busy"|"reserve">>
 export type UpdatedTicketDataType=RemovedCreateAtType<TicketDataType>
 export type UpdateUserDataType=ReturnedDataFromModelType<{name:UserNameModelType,updatedAt:Date,history:Array<string>,reserve:Array<string>}>
-export type UpdateOrderReserveDataType=ReturnedDataFromModelType<{places:Array<number>,status:'active'|'cancelled',updatedAt:Date}>
-
+export type UpdateOrderReserveDataType=ReturnedDataFromModelType<{places:Array<number>,updatedAt:Date}>
+export type CancelOrderReserveDataType=ReturnedDataFromModelType<{status:'active'|'cancelled',updatedAt:Date}>
 
 export type UserArgServiceType={
     _id: Types.ObjectId

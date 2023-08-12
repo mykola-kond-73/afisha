@@ -27,7 +27,8 @@ const schema=new mongoose.Schema<OrderModelType>({
     status:{
         type:String,
         enum:['active','cancelled'],
-        required:true
+        required:true,
+        default:"active"
     },
     createdAt:{
         type:Date,

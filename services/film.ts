@@ -2,6 +2,13 @@ import { IdArgType, ListQueryArgType, UpdateFilmDataType, FilmDataType, FilmsFil
 import { filmModel} from "@/models";
 
 class Film {
+    private static instance:Film|null=null
+
+    constructor(){
+        if(Film.instance) return Film.instance
+        else Film.instance=this
+    }
+
     async getFilms({offset,count,filter}:ListQueryArgType&FilmsFilterType):Promise<FilmsDataType>{
         let search={}
         if(filter?.rating){
