@@ -1,3 +1,4 @@
+import { MONGODB_URI } from '@/utils/env'
 import _mongoose,{connect} from 'mongoose'
 
 
@@ -9,9 +10,7 @@ declare global{
     }
 }
 
-const MONGODB_URI=process.env.MONGODB_URI
-
-if(!MONGODB_URI){
+if(MONGODB_URI){
     throw new Error("Pleace define the MONGODB_URI enviroment variable inside .env.local")
 }
 

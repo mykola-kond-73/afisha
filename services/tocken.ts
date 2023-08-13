@@ -2,6 +2,7 @@ import {   AbbreviatedTockenDataType, GeneratedTockensDataType, IdArgType, ListQ
 import { tockenModel} from "@/models";
 import jwt from 'jsonwebtoken';
 import { Types } from "mongoose";
+import { JWT_ACCESS_TOKEN_SECRET, JWT_ACCESS_TOKEN_TIME_LIFE, JWT_REFRESH_TOKEN_SECRET, JWT_REFRESH_TOKEN_TIME_LIFE } from "@/utils/env";
 
 class Tocken {
     private static instance:Tocken |null=null
@@ -9,6 +10,11 @@ class Tocken {
     constructor(){
         if(Tocken .instance) return Tocken .instance
         else Tocken .instance=this
+    }
+
+    async getCountDocuments():Promise<number>{
+        const count=await tockenModel.countDocuments()
+        return count
     }
 
     async getTockens({offset,count,filter}:ListQueryArgType&TockenFilterType):Promise<TockensDataType>{
@@ -29,7 +35,7 @@ class Tocken {
     }
     async validateAccessToken(tocken:string):Promise<UserArgServiceType | null>{
         try{
-            const userData= jwt.verify(tocken,process.env.JWT_ACCESS_TOKEN_SECRET!)
+            const userData= jwt.verify(tocken,JWT_ACCESS_TOKEN_SECRET)
             return userData as UserArgServiceType
         }catch(error){
             return null
@@ -37,15 +43,15 @@ class Tocken {
     }
     async validateRefreshToken(tocken:string):Promise<UserArgServiceType | null>{
         try{
-            const userData= jwt.verify(tocken,process.env.JWT_REFRESH_TOKEN_SECRET!)
+            const userData= jwt.verify(tocken,JWT_REFRESH_TOKEN_SECRET)
             return userData as UserArgServiceType
         }catch(error){
             return null
         }
     }
     async generateTokens(user:UserArgServiceType):Promise<GeneratedTockensDataType>{
-        const accessToken = jwt.sign({...user}, process.env.JWT_ACCESS_TOKEN_SECRET!, { expiresIn:process.env.JWT_ACCESS_TOKEN_TIME_LIFE})
-        const refreshToken= jwt.sign({...user}, process.env.JWT_REFRESH_TOKEN_SECRET!, { expiresIn:process.env.JWT_REFRESH_TOKEN_TIME_LIFE})
+        const accessToken = jwt.sign({...user}, JWT_ACCESS_TOKEN_SECRET, { expiresIn:JWT_ACCESS_TOKEN_TIME_LIFE})
+        const refreshToken= jwt.sign({...user}, JWT_REFRESH_TOKEN_SECRET, { expiresIn:JWT_REFRESH_TOKEN_TIME_LIFE})
 
         return {
             accessToken,

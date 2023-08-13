@@ -1,3 +1,4 @@
+import { PASSWORD_SALT } from '@/utils/env'
 import bcrypt from 'bcrypt'
 
 class Crypto{
@@ -9,7 +10,7 @@ class Crypto{
     }
 
     async encodePassword(password:string):Promise<string>{
-        const hasedPassword:string=await bcrypt.hash(password,Number(process.env.PASSWORD_SALT!))
+        const hasedPassword:string=await bcrypt.hash(password,Number(PASSWORD_SALT))
         return hasedPassword
     }
 

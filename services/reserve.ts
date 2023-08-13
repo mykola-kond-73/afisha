@@ -1,5 +1,5 @@
 import { CancelOrderReserveDataType, CreateInputReserveType, GetReserveDataType, IdArgType, ListQueryArgType, ReserveDataType, ReserveFilterType, ReservesDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
-import { reserveModel } from "@/models";
+import { reserveModel, tockenModel } from "@/models";
 import { hallService, sessionService } from ".";
 import { filterPlaces } from "@/utils/servicesUtils";
 
@@ -9,6 +9,11 @@ class Reserve {
     constructor(){
         if(Reserve.instance) return Reserve.instance
         else Reserve.instance=this
+    }
+
+    async getCountDocuments():Promise<number>{
+        const count=await tockenModel.countDocuments()
+        return count
     }
 
     async getReserves({ offset, count, filter }: ListQueryArgType & ReserveFilterType): Promise<ReservesDataType> {

@@ -30,7 +30,7 @@ export type FilmsDataType= ListDataType<"films",FilmDataType>
 export type SessionDataType=ReturnedDataFromModelType<SessionModelType>
 export type GetSessionDataType=ReturnedDataFromModelType<{
     timeline:string
-    date:Date
+    date:string
     ticket:TicketDataType
     film:FilmDataType
     hall:HallDataType

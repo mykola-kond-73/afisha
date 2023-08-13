@@ -6,6 +6,8 @@ import mongoDBConnect from '../../../lib/dbConnected'
 import { authGqlSchema, cinemasGqlSchema, filmsGqlSchema, hallsGqlSchema, ordersGqlSchema, reservesGqlSchema, sessionsGqlSchema, ticketsGqlSchema, tockensGqlSchema, usersGqlSchema } from '@/schemas';
 import { authMutations, cinemasMutations, cinemasQueries, filmsMutations, filmsQueries, hallsMutations, hallsQueries, ordersMutations, ordersQueries, reservesMutations, reservesQueries, sessionsMutations, sessionsQueries, ticketsMutations, ticketsQueries, tockensMutations, tockensQueries, usersMutations, usersQueries } from '@/resolvers';
 import { handleServerError } from '@/utils/errors';
+import { cinemaModel, orderModel, tockenModel } from '@/models';
+import { orderService, reserveService, tockenService } from '@/services';
 
 const typeDefs = gql`
     ${cinemasGqlSchema}
@@ -49,12 +51,50 @@ const resolvers = {
 const server = new ApolloServer({
     resolvers,
     typeDefs,
-    formatError:handleServerError
+    // logger:"",
+    formatError:handleServerError,
+    
 })
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server)
 
 mongoDBConnect()
+
+setInterval(async()=>{
+    const count=await reserveService.getCountDocuments()
+    const reservesData=await reserveService.getReserves({offset:0,count,filter:{}})
+
+    for(let reserve of reservesData.reserves){
+        const [from, to]=reserve.session.timeline.split('-')
+        const date=new Date(Date.now())
+        date.setTime(date.getTime()+10*60*1000)
+
+        if(reserve.session.date === date.toDateString()){
+            if(from < date.toTimeString()){
+                await reserveService.cancelReserve(reserve._id.toString())
+            }
+        }
+        if(reserve.session.date < date.toDateString() && reserve.status!=="cancelled"){
+            await reserveService.cancelReserve(reserve._id.toString())
+        }
+    }
+
+
+    const countTockens=await tockenService.getCountDocuments()
+    const tockensData=await tockenService.getTockens({offset:0,count:countTockens,filter:{}})
+
+    for(let tocken of tockensData.tockens){
+        const dateNow=new Date(Date.now())
+        const dateCreateTocken=new Date(tocken.createdAt)
+        dateCreateTocken.setTime(dateCreateTocken.getTime()+12*60*60*1000)
+        if(dateNow > dateCreateTocken){
+            await tockenService.deleteTocken({id:tocken._id.toString()})
+        }
+    }
+
+    console.log("\nCleared tockens and reserves\n")
+},5*60*1000)
+
 
 export async function GET(request: NextRequest) {
     return handler(request)

@@ -19,7 +19,7 @@ export type FilmModelType={
 
 export type SessionModelType={
     timeline:string
-    date:Date
+    date:string
     ticket:Schema.Types.ObjectId
     film:Schema.Types.ObjectId
     hall:Schema.Types.ObjectId

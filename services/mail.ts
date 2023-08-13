@@ -1,3 +1,4 @@
+import { SMTP_PASSWORD, SMTP_USER } from '@/utils/env';
 import nodemailer from 'nodemailer'
 
 class Mail {
@@ -11,8 +12,8 @@ class Mail {
                 host: 'smtp.ethereal.email',
                 port: 587,
                 auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASSWORD
+                    user: SMTP_USER,
+                    pass: SMTP_PASSWORD
                 }
             });
 
