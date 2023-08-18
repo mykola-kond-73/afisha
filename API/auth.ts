@@ -1,0 +1,27 @@
+import { gql } from '@apollo/client'
+
+export const LOGIN=gql`
+    mutation Login($input: LoginInput!) {
+      login(input: $input) {
+        user
+        refreshToken
+        accessToken
+      }
+    }
+`
+
+export const LOGOUT=gql`
+    mutation Logout($refreshToken:String!) {
+        logout(refreshToken: $refreshToken)
+    }
+`
+
+export const REFRESH=gql`
+    mutation Refresh($refreshToken: String!) {
+        refresh(refreshToken: $refreshToken) {
+          user
+          refreshToken
+          accessToken
+        }
+    }
+`

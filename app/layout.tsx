@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-
-const client = new ApolloClient({
-  uri: "http://localhost:3000/api/graphql",
-  cache: new InMemoryCache()
-})
+import { ApolloWrapper } from '@/lib/apolloWrapper'
+import { Footer, Header } from '@/components/globals'
 
 export const metadata: Metadata = {
   title: 'afisha',
@@ -19,9 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ApolloProvider client={client}>
+        <ApolloWrapper>
+          <Header/>
           {children}
-        </ApolloProvider>
+          <Footer/>
+        </ApolloWrapper>
       </body>
     </html>
   )
