@@ -18,6 +18,7 @@ export type InputCinemaType = {
     title: string
     city: string
     street: string
+    photo:string
     films: Array<string>
     halls: Array<string>
     sessions: Array<string>
@@ -27,6 +28,7 @@ export type InputCreateFilmType = {
     title: string
     description: string
     limitation: string
+    photo:string
 }
 
 export type InputUpdateFilmType={

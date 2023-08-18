@@ -32,8 +32,6 @@ const types = gql`
         _id:ID!
         name:NameType!
         updatedAt:String!
-        history:[String]!
-        reserve:[String]!
     }
 
     type UsersType{
@@ -83,8 +81,6 @@ const inputs = gql`
 
     input UpdateUserInput{
         name:UpdateNameInput
-        history:[String]
-        reserve:[String]
     }
 
     input FilterUserType{

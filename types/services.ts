@@ -102,7 +102,7 @@ export type UpdateFilmDataType=RemovedCreateAtType<FilmDataType>
 export type UpdateSessionDataType=RemovedCreateAtType<SessionDataType>
 export type UpdatedHallDataType=RemovedCreateAtType<Omit<HallDataType,"busy"|"reserve">>
 export type UpdatedTicketDataType=RemovedCreateAtType<TicketDataType>
-export type UpdateUserDataType=ReturnedDataFromModelType<{name:UserNameModelType,updatedAt:Date,history:Array<string>,reserve:Array<string>}>
+export type UpdateUserDataType=ReturnedDataFromModelType<{name:UserNameModelType,updatedAt:Date}>
 export type UpdateOrderReserveDataType=ReturnedDataFromModelType<{places:Array<number>,updatedAt:Date}>
 export type CancelOrderReserveDataType=ReturnedDataFromModelType<{status:'active'|'cancelled',updatedAt:Date}>
 

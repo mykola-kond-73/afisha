@@ -5,6 +5,7 @@ export type CinemaModelType={
     city:string
     street:string
     rating:number
+    photo:string
     films:Array<Schema.Types.ObjectId>
     halls:Array<Schema.Types.ObjectId>
     sessions:Array<Schema.Types.ObjectId>
@@ -14,6 +15,7 @@ export type FilmModelType={
     title:string
     description:string
     rating:number
+    photo:string
     limitation: '18+'|'16+'|'12+'|'0+'
 }&TimestampsType
 

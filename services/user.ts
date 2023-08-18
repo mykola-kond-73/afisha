@@ -144,7 +144,7 @@ class User {
         await userModel.updateOne({ _id: id }, input)
 
         const ticket = await userModel.findById(id)
-            .select('-createdAt -password')
+            .select('name updatedAt')
             .lean()
 
         return ticket as UpdateUserDataType

@@ -4,6 +4,7 @@ const types = gql`
     type FilmType{
         _id:ID!
         title:String!
+        photo:String!
         description:String!
         rating:Float!
         limitation:String!
@@ -21,6 +22,7 @@ const types = gql`
         _id:ID!
         title:String!
         description:String!
+        photo:String!
         rating:Float!
         limitation:String!
         updatedAt:String!
@@ -32,6 +34,7 @@ const inputs = gql`
         title:String!
         description:String!
         limitation:String!
+        photo:String!
     }
 
     input UpdateFilmInput{
@@ -39,6 +42,7 @@ const inputs = gql`
         description:String
         rating:Float
         limitation:String
+        photo:String
     }
     
     input FilterFilmInput{

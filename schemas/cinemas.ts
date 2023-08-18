@@ -6,6 +6,7 @@ const types = gql`
         title:String!
         city:String!
         street:String!
+        photo:String!
         rating:Float!
         films:[FilmType]!
         halls:[HallType]!
@@ -19,6 +20,7 @@ const types = gql`
         title:String!
         city:String!
         street:String!
+        photo:String!
         rating:Float!
         films:[String]!
         halls:[String]!
@@ -32,6 +34,7 @@ const types = gql`
         title:String!
         city:String!
         street:String!
+        photo:String!
         rating:Float!
         films:[FilmType]!
         halls:[HallType]!
@@ -54,12 +57,14 @@ const inputs = gql`
         films:[String!]!
         halls:[String!]!
         sessions:[String!]!
+        photo:String!
     }
 
     input UpdateCinemaInput{
         title:String
         city:String
         street:String
+        photo:String
         rating:Float
         films:[String!]
         halls:[String!]
