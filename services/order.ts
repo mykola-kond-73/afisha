@@ -2,8 +2,9 @@ import { GraphQLError } from 'graphql';
 import { CancelOrderReserveDataType, CreateInputOrderType, GetOrderDataType, IdArgType, ListQueryArgType, OrderDataType, OrderFilterType, OrdersDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
 import { orderModel } from "@/models";
 import Stripe from 'stripe'
-import { hallService, mailService, sessionService } from '.';
+import { hallService, mailService, sessionService, userService } from '.';
 import { filterPlaces } from '@/utils/servicesUtils';
+import { paymentService } from './payment';
 
 class Order {
     private static instance: Order | null = null
@@ -72,14 +73,45 @@ class Order {
         const hall = (await sessionService.getSession({ id: input.session })).hall
 
         filterPlaces(hall, input.places)
+        // const user=await userService.getUser({id:input.user})
+
+        // const stripeCustomer=await paymentService.createCustomer({
+        //     email:user.email,
+        //     phone:user.phone,
+        //     name:user.name.firstname+" "+user.name.lastname
+        // })
+
+        // const payment=await paymentService.createPayment({
+        //     customerId:stripeCustomer.id,
+        //     amount:"",
+        //     payment_method:""
+        // })
+
+        // if(payment.status!=='succeeded'){
+        //     throw new GraphQLError("payment failed", {
+        //         extensions: {
+        //             code: "PAYMENT_FAILED"
+        //         }
+        //     })
+        // }
+
+        const creaetOrderData={
+            ...input,
+            payment_status:'succeeded',
+            payment_id:"payment_id"
+
+            // payment_status:payment.status,
+            // payment_id:payment.id
+        }
+
 
         await hallService.orderPlaces(hall._id, input.places)
 
-        const order = await orderModel.create(input)
+        const order = await orderModel.create(creaetOrderData)
         const orderResult = await this.getOrder({ id: order._id })
-        //todo не працює
-        mailService.sendMail("first email", orderResult.user.email)
-        //todo не працює
+//todo не працює
+        // mailService.sendMail("first email", orderResult.user.email)
+//todo не працює
 
         return orderResult
     }

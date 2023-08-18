@@ -17,7 +17,8 @@ const schema=new mongoose.Schema<OrderModelType>({
         required:true
     },
     payment_status:{
-        type:Boolean,
+        type:String,
+        enum:["succeeded","requires_payment_method"],
         required:true
     },
     payment_id:{

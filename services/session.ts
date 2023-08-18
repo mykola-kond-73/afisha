@@ -1,5 +1,7 @@
+import { GraphQLError } from 'graphql';
 import { IdArgType, ListQueryArgType,InputSessionType, UpdateSessionDataType, SessionDataType, SessionsFilterType, SessionsDataType, GetSessionDataType} from "@/types";
 import {sessionModel } from "@/models";
+import { dateForSession, timeForSession } from "@/utils/regExp";
 
 class Session {
     private static instance:Session|null=null
@@ -42,6 +44,15 @@ class Session {
         return session as GetSessionDataType
     }
     async createSession(input:InputSessionType):Promise<SessionDataType>{
+        const [from, to]= input.timeline.split("-")
+        if(!dateForSession.test(input.date) || !timeForSession.test(from) || !timeForSession.test(to)){
+            throw new GraphQLError("Invalid date or timeline format", {
+                extensions: {
+                    code: "INVALID_DATA"
+                }
+            })
+        }
+
         const session=await sessionModel.create(input)
         return session
     }

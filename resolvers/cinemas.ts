@@ -1,3 +1,4 @@
+import { authenticate } from "@/middlewares"
 import { cinemaService } from "@/services"
 import { InputCinemaType,InputArgMutationType,IdArgType,ListQueryArgType, CinemasFilterType } from "@/types"
 
@@ -13,15 +14,21 @@ const cinemasQueries = {
 }
 
 const cinemasMutations = {
-    createCinema:async(_:any,{input}:InputArgMutationType<InputCinemaType>)=>{
+    createCinema:async(_:any,{input}:InputArgMutationType<InputCinemaType>,context:any)=>{
+        await authenticate(context.tocken)
+
         const cinema=await cinemaService.createCinema(input)
         return cinema
     },
-    updateCinema:async(_:any,{id,input}:InputArgMutationType<Partial<InputCinemaType>>)=>{
+    updateCinema:async(_:any,{id,input}:InputArgMutationType<Partial<InputCinemaType>>,context:any)=>{
+        await authenticate(context.tocken)
+
         const cinema=await cinemaService.updateCinema(id!,input)
         return cinema
     },
-    deleteCinema:async(_:any,{id}:IdArgType)=>{
+    deleteCinema:async(_:any,{id}:IdArgType,context:any)=>{
+        await authenticate(context.tocken)
+
         const cinema=await cinemaService.deleteCinema({id})
         return cinema
     }

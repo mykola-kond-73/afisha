@@ -11,7 +11,7 @@ const types = gql`
         user:UserForOrderReserveTockenType!
         session:SessionType!
         places:[Int!]!
-        payment_status:Boolean!
+        payment_status:String!
         payment_id:String!
         status:OrderReserveStatus!
         createdAt:String!
@@ -40,7 +40,7 @@ const types = gql`
         _id:ID!
         session:SessionType!
         places:[Int!]!
-        payment_status:Boolean!
+        payment_status:String!
         payment_id:String!
         status:OrderReserveStatus!
         createdAt:String!
@@ -53,8 +53,6 @@ const inputs = gql`
         user:String!
         session:String!
         places:[Int!]!
-        payment_status:Boolean!
-        payment_id:String!
     }
 
     input UpdateOrderInput{

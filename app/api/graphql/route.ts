@@ -2,12 +2,12 @@ import { gql } from 'graphql-tag';
 import { startServerAndCreateNextHandler } from "@as-integrations/next"
 import { ApolloServer } from "@apollo/server"
 import { NextRequest } from 'next/server'
-import mongoDBConnect from '../../../lib/dbConnected'
 import { authGqlSchema, cinemasGqlSchema, filmsGqlSchema, hallsGqlSchema, ordersGqlSchema, reservesGqlSchema, sessionsGqlSchema, ticketsGqlSchema, tockensGqlSchema, usersGqlSchema } from '@/schemas';
 import { authMutations, cinemasMutations, cinemasQueries, filmsMutations, filmsQueries, hallsMutations, hallsQueries, ordersMutations, ordersQueries, reservesMutations, reservesQueries, sessionsMutations, sessionsQueries, ticketsMutations, ticketsQueries, tockensMutations, tockensQueries, usersMutations, usersQueries } from '@/resolvers';
 import { handleServerError } from '@/utils/errors';
-import { cinemaModel, orderModel, tockenModel } from '@/models';
-import { orderService, reserveService, tockenService } from '@/services';
+import { reserveService, tockenService } from '@/services';
+import { DB } from '@/lib/dbConnect2';
+import { queryLogger } from '@/utils/logger';
 
 const typeDefs = gql`
     ${cinemasGqlSchema}
@@ -51,14 +51,19 @@ const resolvers = {
 const server = new ApolloServer({
     resolvers,
     typeDefs,
-    // logger:"",
     formatError:handleServerError,
     
 })
 
-const handler = startServerAndCreateNextHandler<NextRequest>(server)
+const handler = startServerAndCreateNextHandler<NextRequest>(server,{
+    context:async(req,res)=>{        
+        queryLogger.log('info', `${req.method} ${req.url} ${req.geo} ${req.ip}`)
+        return {tocken:req.headers.get("Authorization")}
+    }
+})
 
-mongoDBConnect()
+const db=new DB()
+db.connect()
 
 setInterval(async()=>{
     const count=await reserveService.getCountDocuments()
@@ -94,6 +99,11 @@ setInterval(async()=>{
 
     console.log("\nCleared tockens and reserves\n")
 },5*60*1000)
+
+
+
+
+
 
 
 export async function GET(request: NextRequest) {

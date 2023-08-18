@@ -64,7 +64,10 @@ export type {
     UpdateInputOrderReserveType,
     CreateInputReserveType,
     InputLoginType,
-    InputRefreshType
+    InputRefreshType,
+    InputPaymentType,
+    InputStripeCustomerType,
+    InputCreateRefundType
 } from './resolvers';
 export type {
     CinemaModelType,

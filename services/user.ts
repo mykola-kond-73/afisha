@@ -2,6 +2,7 @@ import { CreateInputUserType, CreateUserDataType, GetUserDataType, IdArgType, Li
 import { userModel } from "@/models";
 import { cryptoService } from "./crypto";
 import { GraphQLError } from "graphql";
+import { email, phone } from "@/utils/regExp";
 
 class User {
     private static instance:User|null=null
@@ -114,8 +115,15 @@ class User {
                 }
             })
         }
-        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(input.email)) {
+        if (!email.test(input.email)) {
             throw new GraphQLError("Invalid email format", {
+                extensions: {
+                    code: "INVALID_DATA"
+                }
+            })
+        }
+        if (!phone.test(input.phone)) {
+            throw new GraphQLError("Invalid phone format", {
                 extensions: {
                     code: "INVALID_DATA"
                 }

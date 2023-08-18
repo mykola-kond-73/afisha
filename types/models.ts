@@ -47,13 +47,14 @@ export type UserModelType={
     reserve:Array<Schema.Types.ObjectId>
     email:string
     password:string
+    phone:string
 }&TimestampsType
 
 export type OrderModelType={
     user:Schema.Types.ObjectId
     session:Schema.Types.ObjectId
     places:Array<number>
-    payment_status:boolean
+    payment_status:"succeeded"|"requires_payment_method"
     payment_id:string
     status:'active'|'cancelled'
 }&TimestampsType

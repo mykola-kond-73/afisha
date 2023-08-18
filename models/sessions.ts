@@ -7,7 +7,7 @@ const schema=new mongoose.Schema<SessionModelType>({
         required:true
     },
     date:{
-        type:Date,
+        type:String,
         required:true
     },
     ticket:{

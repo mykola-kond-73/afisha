@@ -50,6 +50,7 @@ export type GetUserDataType=ReturnedDataFromModelType<{
     reserve: Array<Omit<GetReserveDataType,"user">>;
     email: string;
     password: string;
+    phone: string
 }& TimestampsType>
 export type CreateUserDataType=ReturnedDataFromModelType<{
     name: UserNameModelType;
@@ -65,7 +66,7 @@ export type GetOrderDataType=ReturnedDataFromModelType<{
     user: UserDataType;
     session: GetSessionDataType;
     places: Array<number>;
-    payment_status: boolean;
+    payment_status: "succeeded"|"requires_payment_method";
     payment_id: string;
     status: 'active' | 'cancelled';
 } & TimestampsType>

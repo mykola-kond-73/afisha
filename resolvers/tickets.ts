@@ -1,3 +1,4 @@
+import { authenticate } from "@/middlewares"
 import { ticketService } from "@/services"
 import { InputArgMutationType, IdArgType, ListQueryArgType, InputTicketType, TicketsFilterType } from "@/types"
 
@@ -13,15 +14,21 @@ const ticketsQueries = {
 }
 
 const ticketsMutations = {
-    createTicket: async (_: any, { input }: InputArgMutationType<InputTicketType>) => {
+    createTicket: async (_: any, { input }: InputArgMutationType<InputTicketType>,context:any) => {
+        await authenticate(context.tocken)
+
         const ticket = await ticketService.createTicket(input)
         return ticket
     },
-    updateTicket: async(_: any, { input,id }: InputArgMutationType<InputTicketType>) => {
+    updateTicket: async(_: any, { input,id }: InputArgMutationType<InputTicketType>,context:any) => {
+        await authenticate(context.tocken)
+
         const ticket=await ticketService.updateTicket(id!,input)
         return ticket
     },
-    deleteTicket: async(_: any, { id }: IdArgType) => {
+    deleteTicket: async(_: any, { id }: IdArgType,context:any) => {
+        await authenticate(context.tocken)
+
         const ticket=await ticketService.deleteTicket({id})
         return ticket
     }

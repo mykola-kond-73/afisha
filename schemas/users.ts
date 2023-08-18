@@ -12,6 +12,7 @@ const types = gql`
         history:[OrderForUserType]!
         reserve:[ReserveForUserType]!
         email:String!
+        phone:String!
         createdAt:String!
         updatedAt:String!
     }
@@ -20,6 +21,7 @@ const types = gql`
         _id:ID!
         name:NameType!
         history:[String]!
+        phone:String!
         reserve:[String]!
         email:String!
         createdAt:String!
@@ -44,6 +46,7 @@ const types = gql`
         _id:ID!
         name:NameType!
         email:String!
+        phone:String!
         createdAt:String!
         updatedAt:String!
     }
@@ -54,6 +57,7 @@ const types = gql`
         history:[String]!
         reserve:[String]!
         email:String!
+        phone:String!
         createdAt:String!
         updatedAt:String!
     }
@@ -74,6 +78,7 @@ const inputs = gql`
         name:CreateNameInput!
         email:String!
         password:String!
+        phone:String!
     }
 
     input UpdateUserInput{

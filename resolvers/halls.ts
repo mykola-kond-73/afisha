@@ -1,3 +1,4 @@
+import { authenticate } from "@/middlewares"
 import { hallService } from "@/services"
 import {CreateInputHallType,UpdateInputHallType,InputArgMutationType,IdArgType,ListQueryArgType, HallsFilterType } from "@/types"
 
@@ -13,15 +14,21 @@ const hallsQueries = {
 }
 
 const hallsMutations = {
-    createHall:async(_:any,{input}:InputArgMutationType<CreateInputHallType>)=>{
+    createHall:async(_:any,{input}:InputArgMutationType<CreateInputHallType>,context:any)=>{
+        await authenticate(context.tocken)
+
         const hall=await hallService.createHall(input)
         return hall
     },
-    updateHall:async(_:any,{id,input}:InputArgMutationType<UpdateInputHallType>)=>{
+    updateHall:async(_:any,{id,input}:InputArgMutationType<UpdateInputHallType>,context:any)=>{
+        await authenticate(context.tocken)
+
         const hall=await hallService.updateHall(id!,input)
         return hall
     },
-    deleteHall:async(_:any,{id}:IdArgType)=>{
+    deleteHall:async(_:any,{id}:IdArgType,context:any)=>{
+        await authenticate(context.tocken)
+
         const hall=await hallService.deleteHall({id})
         return hall
     }

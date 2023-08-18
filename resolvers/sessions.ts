@@ -1,3 +1,4 @@
+import { authenticate } from "@/middlewares"
 import { sessionService } from "@/services"
 import {InputSessionType,InputArgMutationType,IdArgType,ListQueryArgType, SessionsFilterType } from "@/types"
 
@@ -13,15 +14,21 @@ const sessionsQueries = {
 }
 
 const sessionsMutations = {
-    createSession:async(_:any,{input}:InputArgMutationType<InputSessionType>)=>{
+    createSession:async(_:any,{input}:InputArgMutationType<InputSessionType>,context:any)=>{
+        await authenticate(context.tocken)
+
         const session=await sessionService.createSession(input)
         return session
     },
-    updateSession:async(_:any,{id,input}:InputArgMutationType<Partial<InputSessionType>>)=>{
+    updateSession:async(_:any,{id,input}:InputArgMutationType<Partial<InputSessionType>>,context:any)=>{
+        await authenticate(context.tocken)
+
         const session=await sessionService.updateSession(id!,input)
         return session
     },
-    deleteSession:async(_:any,{id}:IdArgType)=>{
+    deleteSession:async(_:any,{id}:IdArgType,context:any)=>{
+        await authenticate(context.tocken)
+
         const session=await sessionService.deleteSession({id})
         return session
     }

@@ -1,14 +1,12 @@
-const MONGODB_URI = process.env.MONGODB_URI
+const MONGODB_URI = process.env.MONGODB_URI || ""
 const PASSWORD_SALT = Number(process.env.PASSWORD_SALT) || 11
-const STRIPE_PRIVATE_KEY = process.env.STRIPE_PRIVATE_KEY
-const SMTP_USER = process.env.SMTP_USER
-const SMTP_PASSWORD = process.env.SMTP_PASSWORD
+const STRIPE_PRIVATE_KEY = process.env.STRIPE_PRIVATE_KEY || ""
+const SMTP_USER = process.env.SMTP_USER || ""
+const SMTP_PASSWORD = process.env.SMTP_PASSWORD || ""
 const JWT_ACCESS_TOKEN_SECRET = process.env.JWT_ACCESS_TOKEN_SECRET || "8b45d7ba8e0bf58f0421c76ec35051dec2da85295c7c7c6abb7a9e0788a793e1"
 const JWT_REFRESH_TOKEN_SECRET = process.env.JWT_REFRESH_TOKEN_SECRET || "c94b3f8413e0d2a7eb9859d95edab850ce8db32cf8cb81357c278d48a5468730"
 const JWT_ACCESS_TOKEN_TIME_LIFE = process.env.JWT_ACCESS_TOKEN_TIME_LIFE || "30m"
 const JWT_REFRESH_TOKEN_TIME_LIFE = process.env.JWT_REFRESH_TOKEN_TIME_LIFE || "12h"
-
-if (!MONGODB_URI || !STRIPE_PRIVATE_KEY || !SMTP_USER || !SMTP_PASSWORD) throw new Error("Check the environment variables")
 
 export {
     MONGODB_URI,

@@ -62,6 +62,7 @@ export type CreateInputUserType = {
     name: UserNameModelType
     email: string
     password: string
+    phone:string
 }
 
 export type UpdateInputUserType = {
@@ -74,8 +75,6 @@ export type CreateInputOrderType = {
     user: string
     session: string
     places:Array<number>
-    payment_status: boolean
-    payment_id: string
 }
 
 export type UpdateInputOrderReserveType = {
@@ -95,4 +94,19 @@ export type InputLoginType = {
 
 export type InputRefreshType = {
     refreshToken: string
+}
+export type InputPaymentType = {
+    id: string;
+    amount: number;
+    customerId: string;
+}
+
+export type InputStripeCustomerType = {
+    email: string;
+    phone: string;
+    name: string;
+}
+
+export type InputCreateRefundType = {
+    paymentId: string;
 }
