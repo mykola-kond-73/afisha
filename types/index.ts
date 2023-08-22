@@ -1,4 +1,21 @@
 export type {
+    LoginModalPropsType,
+    OrderModalPropsType
+} from './components/modals'
+export type{ 
+    CinemaPageParamsType,
+    CinemaPageFilmType,
+    CinemaPageHallType,
+    CinemaPageSessionType,
+    CinemasPageCinemaType
+} from './components/pages';
+export type {
+    FilmCardPropsType,
+    HallCardPropsType,
+    SessionCardPropsType,
+
+} from './components/cards'
+export type {
     TicketsFilterType,
     FilmsFilterType,
     HallsFilterType,

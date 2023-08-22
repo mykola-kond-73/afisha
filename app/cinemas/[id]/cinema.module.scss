@@ -1,0 +1,22 @@
+@import '/styles/variables.scss';
+
+.rootSection,
+.cinemaData,
+.films,
+.halls,
+.sessions{
+    @include flex(column);
+    justify-content: center;
+    align-items: center;
+}
+
+.cinemaData,
+.sessions{
+    margin-bottom: 50px;
+}
+
+.films>div,
+.halls>div,
+.sessions>div{
+    @include flex(row, wrap);
+}

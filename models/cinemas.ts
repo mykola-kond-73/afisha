@@ -16,7 +16,8 @@ const schema=new mongoose.Schema<CinemaModelType>({
     },
     photo:{
         type:String,
-        required:true
+        required:true,
+        default:""
     },
     rating:{
         type:Number,

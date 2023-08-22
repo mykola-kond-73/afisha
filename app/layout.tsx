@@ -1,3 +1,4 @@
+import '../styles/global.scss'
 import type { Metadata } from 'next'
 import { ApolloWrapper } from '@/lib/apolloWrapper'
 import { Footer, Header } from '@/components/globals'
@@ -16,9 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ApolloWrapper>
-          <Header/>
-          {children}
-          <Footer/>
+            <Header />
+            {children}
+            <Footer />
         </ApolloWrapper>
       </body>
     </html>

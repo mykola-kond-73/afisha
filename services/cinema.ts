@@ -22,6 +22,8 @@ class Cinema {
         if (filter?.city) search = { ...search, city: filter.city }
         if (filter?.street) search = { ...search, street: filter.street }
 
+        const totalCount=await cinemaModel.countDocuments(search)
+
         const cinemas: GetCinemaDataType[] = await cinemaModel.find(search)
             .skip(offset)
             .limit(count)
@@ -30,7 +32,7 @@ class Cinema {
                     path: "sessions",
                     populate: [
                         { path: "ticket" },
-                        { path: "halls" },
+                        { path: "hall" },
                         { path: "film" }
                     ]
                 },
@@ -43,7 +45,8 @@ class Cinema {
         return {
             cinemas,
             offset,
-            count: cinemas.length
+            count: cinemas.length,
+            totalCount
         }
     }
     async getCinema({ id }: IdArgType): Promise<GetCinemaDataType> {
@@ -53,7 +56,7 @@ class Cinema {
                     path: "sessions",
                     populate: [
                         { path: "ticket" },
-                        { path: "halls" },
+                        { path: "hall" },
                         { path: "film" }
                     ]
                 },

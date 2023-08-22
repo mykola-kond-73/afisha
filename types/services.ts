@@ -9,7 +9,8 @@ type ReturnedDataFromModelType<T>={
 
 type ListDataType<T extends string,U>={
     offset:number
-    count:number
+    count:number,
+    totalCount?:number
 }&Record<T,Array<U>>
 
 export type CinemaDataType=ReturnedDataFromModelType<CinemaModelType>

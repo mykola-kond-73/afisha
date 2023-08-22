@@ -1,0 +1,52 @@
+@import '/styles/variables.scss';
+
+.section{
+    @include font-link()
+}
+
+.header{
+    height: 50px;
+    background-color: $backgroundColorHeader;
+}
+
+.header>nav{
+    @include flex(row);
+    justify-content: end;
+    padding: 15px 35px 0 0;
+}
+
+.footer{
+    background-color: $backgroundColorBody;
+    @include flex(row);
+}
+
+.login{
+    color:$linksColor;
+}
+
+.downButton,
+.coupleButtons{
+    padding: 10px 10px 0;
+}
+
+@media screen and (max-width: 500px) {
+    .coupleButtons{
+        display: none;
+    }
+
+    .footer{
+        justify-content: center;
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .downButton{
+        display: none;
+    }
+
+    .coupleButtons{
+        @include flex(row);
+        width: 100%;
+        justify-content: space-between;
+    }
+}

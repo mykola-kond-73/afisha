@@ -46,6 +46,7 @@ const types = gql`
         cinemas:[CinemaType]!
         offset:Int!
         count:Int!
+        totalCount:Int!
     }
 `
 

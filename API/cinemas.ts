@@ -9,16 +9,16 @@ export const GET_CINEMAS = gql`
                 city
                 street
                 rating
-                createdAt
-                updatedAt
+                photo
             }
             offset
             count
+            totalCount
         }
     }
 `
 
-export const GET_CINEMA=gql`
+export const GET_CINEMA = gql`
     query GetCinema($getCinemaId:ID!){
         getCinema(id:$getCinemaId){
             _id
@@ -26,14 +26,14 @@ export const GET_CINEMA=gql`
             city
             street
             rating
+            photo
             films {
               _id
               title
               description
               rating
+              photo
               limitation
-              createdAt
-              updatedAt
             }
             halls {
               _id
@@ -41,8 +41,6 @@ export const GET_CINEMA=gql`
               places
               busy
               reserve
-              createdAt
-              updatedAt
             }
             sessions {
               _id
@@ -51,8 +49,6 @@ export const GET_CINEMA=gql`
               ticket {
                 _id
                 cost
-                createdAt
-                updatedAt
               }
               film {
                 _id
@@ -60,8 +56,6 @@ export const GET_CINEMA=gql`
                 description
                 rating
                 limitation
-                createdAt
-                updatedAt
               }
               hall {
                 _id
@@ -69,14 +63,8 @@ export const GET_CINEMA=gql`
                 places
                 busy
                 reserve
-                createdAt
-                updatedAt
               }
-              createdAt
-              updatedAt
             }
-            createdAt
-            updatedAt
         }
     }
 `

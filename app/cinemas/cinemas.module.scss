@@ -1,0 +1,24 @@
+@import '/styles/variables.scss';
+
+.content{
+    @include flex(row,wrap);
+    justify-content: space-between;
+
+    padding: 0 50px;
+}
+.article{
+    @include flex(column);
+    justify-content: center;
+    align-items: center;
+
+    color: $textColor;
+    border: 5px solid $articleBorderColor;
+    border-radius: 15px;
+
+    padding: 15px;
+    margin: 0 35px 50px;
+}
+
+.article>h3{
+    margin: 0;
+}
