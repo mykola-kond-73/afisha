@@ -1,9 +1,30 @@
+import { RegisterDataType } from "./forms"
+
 export type LoginModalPropsType={
     show:boolean
+    isLoadLogin:boolean
+    loginError?:string
     hideFunc:()=>void   
+    showFunc:()=>void
+    signIn:(email:string,password:string)=>void
 }
 
 export type OrderModalPropsType={
-    type:"buy"|"reserve"|""
+    type:"order"|"reserve"|""
+    show:boolean
+    isLoadOrder:boolean
+    isLoadReserve:boolean
+    hideFunc:()=>void   
+    order:(places:number[])=>void
+    reserve:(places:number[])=>void
+    orderError?:string
+    reserveError?:string
+}
 
-}&LoginModalPropsType
+export type RegisterModalPropsType={
+    show:boolean
+    isLoadRefister:boolean
+    registerError?:string
+    hideFunc:()=>void  
+    register:(data:RegisterDataType)=>void
+}

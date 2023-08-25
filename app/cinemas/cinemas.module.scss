@@ -4,7 +4,7 @@
     @include flex(row,wrap);
     justify-content: space-between;
 
-    padding: 0 50px;
+    padding: 20px 50px 0;
 }
 .article{
     @include flex(column);

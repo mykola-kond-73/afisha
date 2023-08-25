@@ -1,19 +1,46 @@
 export type {
+    FormCallbacksType,
+    LoginValuesType,
+    LoginFormPropsType,
+    RegisterFormPropsType,
+    RegisterValuesType,
+    OrderReserveFormPropsType,
+    OrderReserveValuesType,
+    FilterValuesType,
+    FilterFormPropsType,
+    RegisterDataType,
+} from './components/forms'
+export type {
+    PersonalDataPanelPropsType,
+    FilterPanelPropsType,
+    HorizontalPanelPropsType,
+} from './components/panels'
+export type {
+    BoxContentPropsType,
+    ErrorPropsType
+} from './components/fragments'
+export type {
     LoginModalPropsType,
-    OrderModalPropsType
+    OrderModalPropsType,
+    RegisterModalPropsType
 } from './components/modals'
-export type{ 
+export type {
     CinemaPageParamsType,
     CinemaPageFilmType,
     CinemaPageHallType,
     CinemaPageSessionType,
-    CinemasPageCinemaType
+    CinemasPageCinemaType,
+    HeaderPropsType
 } from './components/pages';
 export type {
     FilmCardPropsType,
     HallCardPropsType,
     SessionCardPropsType,
-
+    CinemaInfoCardPropsType,
+    PersonalDataCardType,
+    ActionCardPropsType,
+    ActionCardContainerPropsType,
+    PersonalDataCardPropsType
 } from './components/cards'
 export type {
     TicketsFilterType,

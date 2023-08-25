@@ -18,9 +18,7 @@ const usersQueries = {
 }
 
 const usersMutations = {
-    createUser:async(_:any,{input}:InputArgMutationType<CreateInputUserType>,context:any)=>{
-        await authenticate(context.tocken)
-        
+    createUser:async(_:any,{input}:InputArgMutationType<CreateInputUserType>)=>{        
         const user=await userService.createUser(input)
         return user
     },

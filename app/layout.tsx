@@ -1,7 +1,7 @@
 import '../styles/global.scss'
 import type { Metadata } from 'next'
 import { ApolloWrapper } from '@/lib/apolloWrapper'
-import { Footer, Header } from '@/components/globals'
+import { Footer, HeaderContainer } from '@/components/globals'
 
 export const metadata: Metadata = {
   title: 'afisha',
@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ApolloWrapper>
-            <Header />
+            <HeaderContainer />
             {children}
             <Footer />
         </ApolloWrapper>

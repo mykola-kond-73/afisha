@@ -1,28 +1,28 @@
 "use client"
 
-import classes from './actionsCard.module.scss'
 import { OrderModal } from '@/components/modals'
-import {useState} from 'react'
+import { buttonsColor } from '@/styles'
+import { Box, Button, ButtonGroup, useBoolean } from '@chakra-ui/react'
+import { ActionCardPropsType } from '@/types'
 
-export const ActionsCard = () => {
-    const [isShowModal,setShowModal]=useState(false)
-    const [typeModal,setTypeModal]=useState<"buy"|"reserve"|"">('')
-
-    const showModal=(type:"buy"|"reserve")=>{
-        setShowModal(true)
-        setTypeModal(type)
-        document.body.style.overflow="hidden"
-    }
-    const hideModal=()=>{
-        setShowModal(false)
-        document.body.style.overflow=""
-    }
-
+export const ActionsCard = (props:ActionCardPropsType) => {
     return (
-        <div className={classes.actions}>
-            <OrderModal show={isShowModal} hideFunc={hideModal} type={typeModal}/>
-            <button onClick={()=>showModal("buy")}>Busy</button>
-            <button onClick={()=>showModal("reserve")}>Reserve</button>
-        </div>
+        <Box py="4">
+            <OrderModal
+                show={props.show}
+                hideFunc={props.hideFunc}
+                type={props.type}
+                isLoadOrder={props.isLoadOrder}
+                isLoadReserve={props.isLoadReserve}
+                order={props.order}
+                reserve={props.reserve}
+                orderError={props.orderError}
+                reserveError={props.reserveError}
+            />
+            <ButtonGroup>
+                <Button bgColor={buttonsColor} onClick={() => props.showModal("order")}>Busy</Button>
+                <Button bgColor={buttonsColor} onClick={() => props.showModal("reserve")}>Reserve</Button>
+            </ButtonGroup>
+        </Box>
     )
 }

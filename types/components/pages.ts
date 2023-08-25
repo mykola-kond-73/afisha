@@ -41,6 +41,15 @@ export type CinemasPageCinemaType = {
     photo: string
 }&CreateUpdateAtsType
 
+export type HeaderPropsType={
+    uri:string
+    showModal:()=>void
+    showFilterPanel:()=>void
+    showPersonalDataPanel:()=>void
+    showHorizontalPanel:()=>void
+    logout:()=>void
+}
+
 type CreateUpdateAtsType = {
     createdAt: string
     updatedAt: string

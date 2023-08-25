@@ -11,8 +11,6 @@ export const CREATE_RESERVE=gql`
           ticket {
             _id
             cost
-            createdAt
-            updatedAt
           }
           film {
             _id
@@ -20,8 +18,6 @@ export const CREATE_RESERVE=gql`
             description
             rating
             limitation
-            createdAt
-            updatedAt
           }
           hall {
             _id
@@ -29,16 +25,10 @@ export const CREATE_RESERVE=gql`
             places
             busy
             reserve
-            createdAt
-            updatedAt
           }
-          createdAt
-          updatedAt
         }
         places
         status
-        createdAt
-        updatedAt
       }
     }
 `

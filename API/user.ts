@@ -1,5 +1,21 @@
 import { gql } from '@apollo/client'
 
+export const REGISTER=gql`
+  mutation CreateUser($input: CreateUserInput!) {
+    createUser(input: $input) {
+      _id
+      name {
+        firstname
+        lastname
+      }
+      history
+      phone
+      reserve
+      email
+    }
+  }
+`
+
 export const GET_USER=gql`
     query Query($getUserId: ID!) {
       getUser(id: $getUserId) {
@@ -17,36 +33,24 @@ export const GET_USER=gql`
             ticket {
               _id
               cost
-              createdAt
-              updatedAt
             }
             film {
-              _id
               title
               description
               rating
               limitation
-              createdAt
-              updatedAt
             }
             hall {
-              _id
               title
               places
               busy
               reserve
-              createdAt
-              updatedAt
             }
-            createdAt
-            updatedAt
           }
           places
           payment_status
           payment_id
           status
-          createdAt
-          updatedAt
         }
         reserve {
           _id
@@ -57,39 +61,25 @@ export const GET_USER=gql`
             ticket {
               _id
               cost
-              createdAt
-              updatedAt
             }
             film {
-              _id
               title
               description
               rating
               limitation
-              createdAt
-              updatedAt
             }
             hall {
-              _id
               title
               places
               busy
               reserve
-              createdAt
-              updatedAt
             }
-            createdAt
-            updatedAt
           }
           places
           status
-          createdAt
-          updatedAt
         }
         email
         phone
-        createdAt
-        updatedAt
       }
     }
 `

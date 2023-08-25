@@ -1,12 +1,10 @@
 import { GET_CINEMAS } from "@/API"
 import { getClient } from "@/lib/apolloClient"
 import classes from './cinemas.module.scss'
-import Image from "next/image"
-import photo from '@/public/static/assets/free-icon-phone-4672884.png'
 import Link from 'next/link'
-import { Paginator } from "@/components/fragments/Paginator/Paginator"
+import { Paginator } from "@/components/fragments/Paginator"
 import { CinemasPageCinemaType } from "@/types"
-import { Photo } from "@/components/fragments/Photo/Photo"
+import { Photo } from "@/components/fragments/Photo"
 
 const getCinemas=async(offset=0,count=1,filter={})=>{
     return await getClient().query({

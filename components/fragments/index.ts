@@ -1,3 +1,5 @@
+export { Error } from "./Error"
+export{ BoxContent } from "./BoxContent"
 export { Loader } from "./Loader/Loader"
-export { Paginator } from "./Paginator/Paginator"
-export { Photo } from "./Photo/Photo"
+export { Paginator } from "./Paginator"
+export { Photo } from "./Photo"

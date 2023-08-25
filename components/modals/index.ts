@@ -1,2 +1,2 @@
-export { OrderModal } from "./Order/OrderModal"
-export{ LoginModal } from "./Login/LoginModal"
+export { OrderModal } from "./OrderModal"
+export{ LoginModal } from "./LoginModal"
