@@ -74,12 +74,12 @@ setInterval(async()=>{
         const date=new Date(Date.now())
         date.setTime(date.getTime()+10*60*1000)
 
-        if(reserve.session.date === date.toDateString()){
-            if(from < date.toTimeString()){
+        if(reserve.createdAt.toDateString() === date.toDateString()){
+            if(to >= date.toTimeString()){
                 await reserveService.cancelReserve(reserve._id.toString())
             }
         }
-        if(reserve.session.date < date.toDateString() && reserve.status!=="cancelled"){
+        if(reserve.createdAt < date && reserve.status!=="cancelled"){
             await reserveService.cancelReserve(reserve._id.toString())
         }
     }

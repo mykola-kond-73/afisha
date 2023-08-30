@@ -40,7 +40,10 @@ export type {
     PersonalDataCardType,
     ActionCardPropsType,
     ActionCardContainerPropsType,
-    PersonalDataCardPropsType
+    PersonalDataCardPropsType,
+    HistoryType,
+    ReserveType,
+    ActionsPersonalDataCardPropsType
 } from './components/cards'
 export type {
     TicketsFilterType,

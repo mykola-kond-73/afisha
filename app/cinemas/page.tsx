@@ -17,18 +17,8 @@ const getCinemas=async(offset=0,count=1,filter={})=>{
     })
 }
 
-
 const Cinemas = async () => {
-    // const data = await getClient().query({
-    //     query: GET_CINEMAS,
-    //     variables: {
-    //         offset: 0,
-    //         count: 10,
-    //         filter: {}
-    //     }
-    // })
     const data=await getCinemas(0,10)
-
 
     return (
         <main className={classes.main}>
@@ -67,7 +57,6 @@ const Cinemas = async () => {
                 </nav>
 
             </div>
-
             <Paginator totalCount={data.data.getCinemas.totalCount}/>
         </main>
     )

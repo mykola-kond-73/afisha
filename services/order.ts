@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { CancelOrderReserveDataType, CreateInputOrderType, GetOrderDataType, IdArgType, ListQueryArgType, OrderDataType, OrderFilterType, OrdersDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
-import { orderModel } from "@/models";
+import { orderModel, userModel } from "@/models";
 import Stripe from 'stripe'
 import { hallService, mailService, sessionService, userService } from '.';
 import { filterPlaces } from '@/utils/servicesUtils';
@@ -108,6 +108,7 @@ class Order {
         await hallService.orderPlaces(hall._id, input.places)
 
         const order = await orderModel.create(creaetOrderData)
+        await userModel.findOneAndUpdate({_id:input.user},{ $addToSet:{history:order._id}})
         const orderResult = await this.getOrder({ id: order._id })
 //todo не працює
         // mailService.sendMail("first email", orderResult.user.email)
@@ -133,7 +134,7 @@ class Order {
 
         await orderModel.updateOne({ _id: id }, { status: "cancelled" })
 
-        const order = await orderModel.findById(id, { updatedAt: 1, status: 1 })
+        const order = await orderModel.findById(id, { updatedAt: 1, status: 1,places:1 })
 
         return order as CancelOrderReserveDataType
     }

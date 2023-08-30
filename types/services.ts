@@ -105,7 +105,7 @@ export type UpdatedHallDataType=RemovedCreateAtType<Omit<HallDataType,"busy"|"re
 export type UpdatedTicketDataType=RemovedCreateAtType<TicketDataType>
 export type UpdateUserDataType=ReturnedDataFromModelType<{name:UserNameModelType,updatedAt:Date}>
 export type UpdateOrderReserveDataType=ReturnedDataFromModelType<{places:Array<number>,updatedAt:Date}>
-export type CancelOrderReserveDataType=ReturnedDataFromModelType<{status:'active'|'cancelled',updatedAt:Date}>
+export type CancelOrderReserveDataType=ReturnedDataFromModelType<{status:'active'|'cancelled',updatedAt:Date,places:number[]}>
 
 export type UserArgServiceType={
     _id: Types.ObjectId

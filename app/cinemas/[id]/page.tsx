@@ -2,11 +2,10 @@
 
 import { GET_CINEMA } from "@/API"
 import { useQuery } from "@apollo/client"
-import classes from './cinema.module.scss'
 import { CinemaInfoCard, FilmCard, HallCard, SessionCard } from "@/components/pages"
-import { Photo, Loader, BoxContent, Error } from "@/components/fragments"
+import { Loader, BoxContent, Error } from "@/components/fragments"
 import { CinemaPageFilmType, CinemaPageHallType, CinemaPageParamsType, CinemaPageSessionType } from "@/types"
-import { Box, ChakraProvider, Flex } from '@chakra-ui/react'
+import { Box, ChakraProvider, Flex} from '@chakra-ui/react'
 import { CacheProvider } from '@chakra-ui/next-js'
 
 export const dynamic = "force-dynamic"
@@ -81,6 +80,7 @@ const Cinema = ({ params }: CinemaPageParamsType) => {
                                             ticket={elem.ticket}
                                             film={elem.film}
                                             hall={elem.hall}
+                                            noHalls={false}
                                         />
                                     )
                                 })

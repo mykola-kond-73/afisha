@@ -27,6 +27,7 @@ const types = gql`
         _id:ID
         status:OrderReserveStatus
         updatedAt:String
+        places:[Int!]
     }
 
     type ReserveForUserType{

@@ -8,6 +8,7 @@ class GlobalContext {
 
     private _onLoginModalCallback = () => { }
     private _refreshTocken=""
+    private _signout=async ()=>{}
 
     public getOnLoginModal(): () => void {
         return this._onLoginModalCallback
@@ -28,6 +29,15 @@ class GlobalContext {
 
     public deleteRefreshTocken():boolean{
         this._refreshTocken=""
+        return true
+    }
+
+    public getSingOut=()=>{
+        return this._signout
+    }
+
+    public setSingOut=(func:()=>Promise<void>):boolean=>{
+        this._signout=func
         return true
     }
 }

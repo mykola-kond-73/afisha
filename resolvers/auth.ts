@@ -14,7 +14,7 @@ const authMutations = {
         return logout
     },
     refresh:async(_:any,{refreshToken}:InputRefreshType,context:any)=>{
-        await authenticate(context.tocken)
+        // await authenticate(context.tocken)
 
         const refresh=await authService.refresh(refreshToken)
         return refresh

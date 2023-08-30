@@ -4,13 +4,18 @@ import {
   ApolloClient,
   ApolloLink,
   HttpLink,
+  concat,
+  fromPromise,
+  useMutation,
 } from "@apollo/client";
+// import { onError } from "@apollo/client/link/error";
 import {
   ApolloNextAppProvider,
   NextSSRApolloClient,
   NextSSRInMemoryCache,
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
+import {setContext} from '@apollo/client/link/context'
 
 function makeClient() {
   const httpLink = new HttpLink({
@@ -19,6 +24,15 @@ function makeClient() {
     uri: "http://localhost:3000/api/graphql",
 
   });
+
+  const authlink=setContext((_,{headers})=>{
+    return {
+      headers:{
+        ...headers,
+        "Authorization": `Bearer:${localStorage.getItem("tocken")}`
+      }
+    }
+  })
 
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
@@ -29,8 +43,9 @@ function makeClient() {
               stripDefer: true,
             }),
             httpLink,
+            authlink
           ])
-        : httpLink,
+        :authlink.concat(httpLink),
     connectToDevTools: true
   });
 }

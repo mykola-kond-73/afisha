@@ -33,21 +33,13 @@ export const CREATE_RESERVE=gql`
     }
 `
 
-export const UPDATE_RESERVE=gql`
-    mutation UpdateReserve($updateReserveId: String!, $input: UpdateReserveInput!) {
-        updateReserve(id: $updateReserveId, input: $input) {
-            _id
-            places
-            updatedAt
-        }
-    }
-`
 export const CANCEL_RESERVE=gql`
     mutation CancelReserve($cancelReserveId: String!) {
         cancelReserve(id: $cancelReserveId) {
             _id
             status
             updatedAt
+            places
         }
     }
 `

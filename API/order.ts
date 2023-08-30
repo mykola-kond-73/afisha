@@ -35,24 +35,13 @@ export const CREATE_ORDER=gql`
     }
 `
 
-export const UPDATE_ORDER=gql`
-    mutation UpdateOrder($updateOrderId: String!, $input: UpdateOrderInput!) {
-        updateOrder(id: $updateOrderId, input: $input) {
-            _id
-            places
-            updatedAt
-        }
-    }
-`
-
 export const CANCEL_ORDER=gql`
     mutation CancelOrder($cancelOrderId: String!) {
         cancelOrder(id: $cancelOrderId) {
             _id
             status
             updatedAt
+            places
         }
     }
 `
-
-

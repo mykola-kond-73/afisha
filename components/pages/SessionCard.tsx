@@ -43,20 +43,28 @@ export const SessionCard = (props: SessionCardPropsType) => {
                     />
                 </BoxContent>
 
-                <BoxContent title='Hall'>
-                    <HallCard
-                        title={props.hall.title}
-                        busy={props.hall.busy}
-                        places={props.hall.places}
-                        reserve={props.hall.reserve}
-                    />
-                </BoxContent>
+                {
+                    !props.noHalls
+                        ? <BoxContent title='Hall'>
+                            <HallCard
+                                title={props.hall!.title}
+                                busy={props.hall!.busy}
+                                places={props.hall!.places}
+                                reserve={props.hall!.reserve}
+                            />
+                        </BoxContent>
+                        : null
+                }
+
 
                 <Box mt="-8">
                     <Text>Cost: {props.ticket.cost}</Text>
                 </Box>
-
-                <ActionsCardContainer sessionId={props._id}/>
+                {
+                    !props.noHalls
+                        ?<ActionsCardContainer sessionId={props._id} />
+                        : null
+                }
             </Flex>
         </Box>
     )

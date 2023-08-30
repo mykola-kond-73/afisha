@@ -27,6 +27,7 @@ const types = gql`
     type CanceledOrderType{
         _id:ID
         status:OrderReserveStatus
+        places:[Int!]
         updatedAt:String
     }
 

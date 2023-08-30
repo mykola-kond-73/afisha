@@ -1,16 +1,15 @@
-'use client'
+"use client"
 
-import { useEffect } from 'react'
 import { LoginModal } from "@/components/modals"
 import { ChakraProvider, useBoolean } from '@chakra-ui/react'
 import { CacheProvider } from '@chakra-ui/next-js'
 import { RegistrationModal } from "@/components/modals/RegistrationModal"
 import { HorizontalPanel, PersonalDataPanel } from "@/components/panels"
 import { FilterPanel } from "@/components/panels/FilterPanel"
-import { Header } from './Header'
+import { Header } from '../globals/Header'
 import { globalContext } from '@/utils/globalContext'
 import { usePathname } from 'next/navigation'
-import { useMutation } from '@apollo/client'
+import {  useMutation } from '@apollo/client'
 import {  LOGIN, LOGOUT, REGISTER } from '@/API'
 import { RegisterDataType} from '@/types'
 
@@ -31,23 +30,18 @@ export const HeaderContainer = () => {
     const [logout] = useMutation(LOGOUT)
 
     const signOut = async () => {
-        const { data: logoutData, errors: logOutError } = await logout({
-            variables: {
-                refreshToken: globalContext.getRefreshTocken()
-            },
-            context: {
-                headers: {
-                    "Authorization": `Bearer:${data.login.accessToken}`
-                }
-            }
-        })
-
         localStorage.removeItem("tocken")
         localStorage.removeItem("user")
         globalContext.deleteRefreshTocken()
+        const { data: logoutData, errors: logOutError } = await logout({
+            variables: {
+                refreshToken: globalContext.getRefreshTocken()
+            }
+        })
 
         if (logOutError) console.log("signout error", logOutError)
     }
+    globalContext.setSingOut(signOut)
 
     const signIn = async (email: string, password: string) => {
         const { data, errors: loginError } = await login({
@@ -80,9 +74,7 @@ export const HeaderContainer = () => {
     }
 
     let tocken: string | null = ""
-    useEffect(() => {
-        tocken = localStorage.getItem("tocken")
-    })
+    if(typeof window !== "undefined") tocken=localStorage.getItem("tocken")    
 
     return (
         <CacheProvider>
@@ -96,6 +88,7 @@ export const HeaderContainer = () => {
 
                 <Header
                     uri={uri}
+                    tocken={tocken}
                     showFilterPanel={setShowFilterPanel.on}
                     showModal={setShowModal.on}
                     showPersonalDataPanel={setShowPersonalDataPanel.on}

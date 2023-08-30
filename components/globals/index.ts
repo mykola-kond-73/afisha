@@ -1,2 +1,2 @@
-export { HeaderContainer } from './Header/HeaderContainer'
-export { Footer } from './Footer/Footer'
+export { HeaderContainer } from '../containers/HeaderContainer'
+export { Footer } from './Footer'

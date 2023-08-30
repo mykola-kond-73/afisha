@@ -4,9 +4,11 @@ import { ActionCardContainerPropsType } from "@/types"
 import { globalContext } from "@/utils/globalContext"
 import { useBoolean } from "@chakra-ui/react"
 import { useState } from "react"
-import { useMutation } from "@apollo/client"
-import { CREATE_ORDER, CREATE_RESERVE } from "@/API"
-import { ActionsCard } from "./ActionsCard"
+import { gql, useMutation } from "@apollo/client"
+import { CREATE_ORDER, CREATE_RESERVE, READ_CAHCHE_USER, UPDATE_HISTORY_USER_DATA } from "@/API"
+import { ActionsCard } from "../pages/ActionsCard"
+import { createOrderCacheHandler, createReserveCacheHandler } from "@/utils/cacheHandlers"
+
 
 export const ActionsCardContainer = (props: ActionCardContainerPropsType) => {
     const [isShowModal, setShowModal] = useBoolean(false)
@@ -36,11 +38,8 @@ export const ActionsCardContainer = (props: ActionCardContainerPropsType) => {
                     user: localStorage.getItem("user")
                 }
             },
-            context: {
-                headers: {
-                    "Authorization": `Bearer:${localStorage.getItem("tocken")}`
-                }
-            }
+            //@ts-ignore
+            update: createOrderCacheHandler
         })
         if (orderError) console.log("order error", orderError)
         else setShowModal.off()
@@ -55,11 +54,8 @@ export const ActionsCardContainer = (props: ActionCardContainerPropsType) => {
                     user: localStorage.getItem("user")
                 }
             },
-            context: {
-                headers: {
-                    "Authorization": `Bearer:${localStorage.getItem("tocken")}`
-                }
-            }
+            //@ts-ignore
+            update: createReserveCacheHandler
         })
         if (reserveError) console.log("reserve error", orderError)
         else setShowModal.off()

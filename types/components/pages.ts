@@ -43,6 +43,7 @@ export type CinemasPageCinemaType = {
 
 export type HeaderPropsType={
     uri:string
+    tocken:string|null
     showModal:()=>void
     showFilterPanel:()=>void
     showPersonalDataPanel:()=>void

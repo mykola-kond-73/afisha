@@ -10,6 +10,7 @@ import { Box, Flex, Text } from "@chakra-ui/react"
 import { backgroundColorBody, backgroundColorHeader, linksColor } from "@/styles"
 
 export const Header = (props: HeaderPropsType) => {
+    
     return (
         <Box fontSize="large" fontWeight="bold">
 
@@ -17,7 +18,7 @@ export const Header = (props: HeaderPropsType) => {
                 <Flex direction="row" justifyContent="end" pt="4" pr="9">
                     <Box>
                         {
-                            !localStorage.getItem("tocken")
+                            !props.tocken
                                 ? <Text textColor={linksColor} onClick={props.showModal}>
                                     Sign In
                                 </Text>

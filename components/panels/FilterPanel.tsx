@@ -1,6 +1,6 @@
 "use client"
 
-import { FilterPanelPropsType, PanelPropsType } from '@/types'
+import { FilterPanelPropsType} from '@/types'
 import {
     Drawer,
     DrawerBody,

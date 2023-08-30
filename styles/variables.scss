@@ -7,6 +7,7 @@ $footerLinksColor:#106635;
 $articleBorderColor:#141D62;
 $loaderColor:#309D60;
 $buttonsColor:#63CE92;
+$curentPageColor:darkred;
 
 @mixin flex($direction, $wrap: nowrap) {
     display: flex;

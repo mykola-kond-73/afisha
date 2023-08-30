@@ -32,7 +32,7 @@ class User {
                             path: "session",
                             populate: [
                                 { path: "ticket" },
-                                { path: "halls" },
+                                { path: "hall" },
                                 { path: "film" }
                             ]
                         },
@@ -46,7 +46,7 @@ class User {
                             path: "session",
                             populate: [
                                 { path: "ticket" },
-                                { path: "halls" },
+                                { path: "hall" },
                                 { path: "film" }
                             ]
                         },
@@ -75,7 +75,7 @@ class User {
                             path: "session",
                             populate: [
                                 { path: "ticket" },
-                                { path: "halls" },
+                                { path: "hall" },
                                 { path: "film" }
                             ]
                         },
@@ -89,7 +89,7 @@ class User {
                             path: "session",
                             populate: [
                                 { path: "ticket" },
-                                { path: "halls" },
+                                { path: "hall" },
                                 { path: "film" }
                             ]
                         },

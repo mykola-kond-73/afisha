@@ -1,4 +1,5 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import {onError} from '@apollo/client/link/error'
+import { HttpLink } from "@apollo/client";
 import {
   NextSSRInMemoryCache,
   NextSSRApolloClient,
@@ -8,7 +9,7 @@ import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rs
 export const { getClient } = registerApolloClient(() => {
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
-    link: new HttpLink({
+    link:new HttpLink({
       // https://studio.apollographql.com/public/spacex-l4uc6p/
     //   uri: "https://main--spacex-l4uc6p.apollographos.net/graphql",
     uri: "http://localhost:3000/api/graphql",

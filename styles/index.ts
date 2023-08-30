@@ -8,4 +8,5 @@ export {
     articleBorderColor,
     loaderColor,
     buttonsColor,
+    curentPageColor
 } from './variables'

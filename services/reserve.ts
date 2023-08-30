@@ -1,5 +1,5 @@
 import { CancelOrderReserveDataType, CreateInputReserveType, GetReserveDataType, IdArgType, ListQueryArgType, ReserveDataType, ReserveFilterType, ReservesDataType, UpdateInputOrderReserveType, UpdateOrderReserveDataType } from "@/types";
-import { reserveModel, tockenModel } from "@/models";
+import { reserveModel, tockenModel, userModel } from "@/models";
 import { hallService, sessionService } from ".";
 import { filterPlaces } from "@/utils/servicesUtils";
 
@@ -77,6 +77,7 @@ class Reserve {
         await hallService.reservePlaces(hall._id,input.places)
 
         const reserve = await reserveModel.create(input)
+        await userModel.findOneAndUpdate({_id:input.user},{ $addToSet:{reserve:reserve._id}})
         const reserveResult=await this.getReserve({id:reserve._id})
 
         return reserveResult
@@ -99,7 +100,7 @@ class Reserve {
 
         await reserveModel.updateOne({ _id: id },{status:"cancelled"})
 
-        const order = await reserveModel.findById(id,{updatedAt:1,status:1})
+        const order = await reserveModel.findById(id,{updatedAt:1,status:1,places:1})
 
         return order as CancelOrderReserveDataType
     }

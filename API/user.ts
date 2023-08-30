@@ -40,11 +40,8 @@ export const GET_USER=gql`
               rating
               limitation
             }
-            hall {
-              title
-              places
-              busy
-              reserve
+            hall{
+              _id
             }
           }
           places
@@ -68,11 +65,8 @@ export const GET_USER=gql`
               rating
               limitation
             }
-            hall {
-              title
-              places
-              busy
-              reserve
+            hall{
+              _id
             }
           }
           places
@@ -81,19 +75,6 @@ export const GET_USER=gql`
         email
         phone
       }
-    }
-`
-
-export const UPDATE_USER=gql`
-    mutation UpdateUser($updateUserId: String!, $input: UpdateUserInput!) {
-        updateUser(id: $updateUserId, input: $input) {
-            _id
-            name {
-                firstname
-                lastname
-            }
-            updatedAt
-        }
     }
 `
 
