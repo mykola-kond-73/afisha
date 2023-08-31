@@ -54,6 +54,7 @@ const inputs = gql`
         user:String!
         session:String!
         places:[Int!]!
+        amount:Float!
     }
 
     input UpdateOrderInput{

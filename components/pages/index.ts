@@ -1,3 +1,5 @@
+export { CinemasContainer } from "../containers/CinemasContainer"
+export { CinemaCard } from "./CinemaCard"
 export { ActionsPersonalDataCardContainer } from "../containers/ActionsPersonalDataCardContainer"
 export { PersonalDataCardContainer } from "../containers/PersonalDataCardContainer"
 export { CinemaInfoCard } from "./CinemaInfoCard"

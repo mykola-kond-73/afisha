@@ -9,6 +9,7 @@ class GlobalContext {
     private _onLoginModalCallback = () => { }
     private _refreshTocken=""
     private _signout=async ()=>{}
+    private _getCinemasCallback=(page:number,filter:any)=>{}
 
     public getOnLoginModal(): () => void {
         return this._onLoginModalCallback
@@ -38,6 +39,15 @@ class GlobalContext {
 
     public setSingOut=(func:()=>Promise<void>):boolean=>{
         this._signout=func
+        return true
+    }
+
+    public getCinemasCallback=()=>{
+        return this._getCinemasCallback
+    }
+
+    public setCinemasCallback=(callback:(page:number)=>void)=>{
+        this._getCinemasCallback=callback
         return true
     }
 }

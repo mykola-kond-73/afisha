@@ -9,6 +9,7 @@ export const ActionsCard = (props:ActionCardPropsType) => {
     return (
         <Box py="4">
             <OrderModal
+                amount={props.amount}
                 show={props.show}
                 hideFunc={props.hideFunc}
                 type={props.type}

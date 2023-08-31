@@ -14,8 +14,9 @@ export type OrderModalPropsType={
     show:boolean
     isLoadOrder:boolean
     isLoadReserve:boolean
+    amount:number
     hideFunc:()=>void   
-    order:(places:number[])=>void
+    order:(places:number[],amount:number)=>void
     reserve:(places:number[])=>void
     orderError?:string
     reserveError?:string

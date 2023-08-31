@@ -28,6 +28,7 @@ export const OrderModal = (props: OrderModalPropsType) => {
             type={props.type}
             order={props.order}
             reserve={props.reserve}
+            amount={props.amount}
           />
           
           {

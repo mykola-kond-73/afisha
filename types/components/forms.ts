@@ -13,7 +13,8 @@ export type OrderReserveFormPropsType={
     type:"order"|"reserve"|""
     isLoadOrder:boolean
     isLoadReserve:boolean
-    order:(places:number[])=>void
+    amount:number
+    order:(places:number[],amount:number)=>void
     reserve:(places:number[])=>void
 }
 

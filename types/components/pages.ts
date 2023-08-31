@@ -39,7 +39,7 @@ export type CinemasPageCinemaType = {
     street: string
     rating: number
     photo: string
-}&CreateUpdateAtsType
+}
 
 export type HeaderPropsType={
     uri:string

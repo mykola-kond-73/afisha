@@ -17,7 +17,8 @@ export type {
 } from './components/panels'
 export type {
     BoxContentPropsType,
-    ErrorPropsType
+    ErrorPropsType,
+    PaginatorPropsType
 } from './components/fragments'
 export type {
     LoginModalPropsType,
@@ -43,7 +44,9 @@ export type {
     PersonalDataCardPropsType,
     HistoryType,
     ReserveType,
-    ActionsPersonalDataCardPropsType
+    ActionsPersonalDataCardPropsType,
+    CinemasCardPropsType,
+    CinemasContainerPropsType
 } from './components/cards'
 export type {
     TicketsFilterType,

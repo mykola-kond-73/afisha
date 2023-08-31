@@ -83,7 +83,7 @@ class Order {
 
         // const payment=await paymentService.createPayment({
         //     customerId:stripeCustomer.id,
-        //     amount:"",
+        //     amount:input.amount,
         //     payment_method:""
         // })
 

@@ -35,6 +35,7 @@ export const SessionCard = (props: SessionCardPropsType) => {
 
                 <BoxContent title='Film'>
                     <FilmCard
+                        _id={props.film._id}
                         title={props.film.title}
                         description={props.film.description}
                         limitation={props.film.limitation}
@@ -47,6 +48,7 @@ export const SessionCard = (props: SessionCardPropsType) => {
                     !props.noHalls
                         ? <BoxContent title='Hall'>
                             <HallCard
+                                _id={props.hall!._id}
                                 title={props.hall!.title}
                                 busy={props.hall!.busy}
                                 places={props.hall!.places}
@@ -62,7 +64,7 @@ export const SessionCard = (props: SessionCardPropsType) => {
                 </Box>
                 {
                     !props.noHalls
-                        ?<ActionsCardContainer sessionId={props._id} />
+                        ?<ActionsCardContainer amount={Number(props.ticket.cost)} sessionId={props._id} />
                         : null
                 }
             </Flex>

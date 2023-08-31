@@ -20,7 +20,7 @@ const ordersQueries = {
 const ordersMutations = {
     createOrder:async(_:any,{input}:InputArgMutationType<CreateInputOrderType>,context:any)=>{
         await authenticate(context.tocken)
-
+// console.log(input)
         const order=await orderService.createOrder(input)
         return order
     },

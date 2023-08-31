@@ -5,12 +5,14 @@ import { Form, Formik } from "formik"
 import { Input } from "./Components"
 import { buttonsColor } from "@/styles"
 import { FilterFormPropsType, FilterValuesType, FormCallbacksType } from "@/types"
+import { globalContext } from "@/utils/globalContext"
 
 export const FilterForm=(props:FilterFormPropsType)=>{
     const submit = async (values:FilterValuesType , { setSubmitting, resetForm }: FormCallbacksType) => {
         props.setLoad.on()
 
-       
+       globalContext.getCinemasCallback()(1,values)
+
         console.log(values)
         props.setLoad.off()
         props.hideFunc()

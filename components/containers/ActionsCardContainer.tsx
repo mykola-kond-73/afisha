@@ -29,10 +29,11 @@ export const ActionsCardContainer = (props: ActionCardContainerPropsType) => {
         setShowModal.off()
     }
 
-    const createOrder = async (places: number[]) => {
+    const createOrder = async (places: number[],amount:number) => {
         const { data: orderData, errors: orderError } = await order({
             variables: {
                 input: {
+                    amount,
                     places,
                     session: props.sessionId,
                     user: localStorage.getItem("user")
@@ -73,6 +74,7 @@ export const ActionsCardContainer = (props: ActionCardContainerPropsType) => {
             orderError={orderError?.message}
             reserveError={reserveError?.message}
             showModal={showModal}
+            amount={props.amount}
         />
     )
 }

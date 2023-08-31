@@ -1,4 +1,4 @@
-import { OrderModalPropsType } from ".."
+import { CinemasPageCinemaType, OrderModalPropsType } from ".."
 
 export type FilmCardPropsType = {
     _id: string
@@ -65,6 +65,7 @@ export type ActionCardPropsType = {
 
 export type ActionCardContainerPropsType = {
     sessionId: string
+    amount:number
 }
 
 export type HistoryType = {
@@ -89,4 +90,27 @@ export type ActionsPersonalDataCardPropsType = {
         callback: () => void
         isLoad:boolean
     }
+}
+
+export type CinemasCardPropsType = {
+    data:CinemaType
+    error?:string
+    loading:boolean
+}&PaginatorType
+
+export type CinemasContainerPropsType={
+    data:CinemaType
+}
+
+export type PaginatorType={
+    currentPage:number
+    countInPage:number
+    getFunc:(currentPage:number,filter?:any)=>void
+}
+
+export type CinemaType={
+    cinemas:Array<CinemasPageCinemaType>
+    offset:number
+    count:number
+    totalCount:number
 }
