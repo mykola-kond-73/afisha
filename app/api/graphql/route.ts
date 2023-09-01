@@ -51,8 +51,7 @@ const resolvers = {
 const server = new ApolloServer({
     resolvers,
     typeDefs,
-    formatError:handleServerError,
-    
+    formatError:handleServerError
 })
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server,{

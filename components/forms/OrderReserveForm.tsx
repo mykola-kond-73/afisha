@@ -29,10 +29,10 @@ export const OrderReserveForm = (props: OrderReserveFormPropsType) => {
 
     const submit = async (values: OrderReserveValuesType, { setSubmitting, resetForm }: FormCallbacksType) => {
         // @ts-ignore-start
-        const { error, paymentMethod } = await stripe?.createPaymentMethod({
-            type: "card",
-            card: elements?.getElement(CardElement),
-        })
+        // const { error, paymentMethod } = await stripe?.createPaymentMethod({
+        //     type: "card",
+        //     card: elements?.getElement(CardElement),
+        // })
         // @ts-ignore-end
 
 
@@ -41,13 +41,14 @@ export const OrderReserveForm = (props: OrderReserveFormPropsType) => {
         
 //todo 
         const orderData={
-            paymentMethod,
+            // paymentMethod,
             places:numArr,
             amount:props.amount
         }
 //todo 
 
         if (props.type === 'order') {
+            //@ts-ignore
             props.order(numArr,props.amount)
 console.log(orderData)
         }
@@ -74,10 +75,10 @@ console.log(orderData)
             {({ isSubmitting, errors, touched }) => (
                 <Form>
                     <Box>
-                        {
+                        {/* {
                             props.type === "order" &&
                             <CardElement options={formOptions} />
-                        }
+                        } */}
                         <Input touched={touched} errors={errors} name="places" type="text" placeholder="Enter places" />
                     </Box>
                     <Box>

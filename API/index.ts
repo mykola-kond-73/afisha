@@ -1,5 +1,5 @@
 export { UPDATE_HISTORY_USER_DATA,READ_CAHCHE_USER,UPDATE_ORDER_STATUS,UPDATE_HALL_ORDER,UPDATE_RESERVE_STATUS,UPDATE_HALL_RESERVE } from './cache'
-export { LOGIN,LOGOUT,REFRESH } from './auth'
+export { LOGIN,LOGOUT,refreshJson } from './auth'
 export { GET_CINEMAS,GET_CINEMA} from './cinemas'
 export { CREATE_ORDER,CANCEL_ORDER } from './order'
 export { CREATE_RESERVE,CANCEL_RESERVE } from './reserve'

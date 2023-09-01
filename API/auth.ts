@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const LOGIN=gql`
+export const LOGIN = gql`
     mutation Login($input: LoginInput!) {
       login(input: $input) {
         user
@@ -10,18 +10,22 @@ export const LOGIN=gql`
     }
 `
 
-export const LOGOUT=gql`
+export const LOGOUT = gql`
     mutation Logout($refreshToken:String!) {
         logout(refreshToken: $refreshToken)
     }
 `
 
-export const REFRESH=gql`
-    mutation Refresh($refreshToken: String!) {
-        refresh(refreshToken: $refreshToken) {
-          user
-          refreshToken
-          accessToken
-        }
-    }
-`
+export const refreshJson = (refreshTocken: string) => {
+  const query = JSON.stringify({
+    query: `mutation{
+      refresh(refreshToken:"${refreshTocken}") {
+        user
+        refreshToken
+        accessToken
+      }
+  }
+  `
+  })
+  return query
+}
